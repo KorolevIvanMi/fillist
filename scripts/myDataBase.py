@@ -32,7 +32,7 @@ def get_db_path():
 class myDataBase:
     def __init__(self):
         self.db_path = get_db_path()
-        print(f"Database location: {self.db_path}")
+        
         self.db_init()
         
     def db_init(self):
@@ -145,7 +145,7 @@ class myDataBase:
             print(f"Error initializing database: {e}")
             print(f"DB path was: {self.db_path}")
 
-    # Остальные методы класса остаются без изменений
+    
     def find_film_by_name(self, film_name):
         try:
             with sq.connect(self.db_path) as con:
@@ -259,7 +259,8 @@ class myDataBase:
         film_status = film_status.strip()
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
-        
+        if film_name == "" or film_name == " ":
+            return 0
         with sq.connect(self.db_path) as con:
             con.row_factory = sq.Row 
             cur = con.cursor()
@@ -361,6 +362,8 @@ class myDataBase:
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
 
+        if film_name == "" or film_name == " ":
+            return 0
         with sq.connect(self.db_path) as con:
             con.row_factory = sq.Row 
             cur = con.cursor()
