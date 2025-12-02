@@ -10,7 +10,7 @@ class CustomButtonWith2States(ButtonBehavior, Image):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.is_active = False
-        # Уберите инициализацию source здесь, она будет обновляться автоматически
+        
 
     def on_normal_source(self, instance, value):
         if self.state == 'normal':
