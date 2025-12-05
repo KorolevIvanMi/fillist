@@ -1,21 +1,23 @@
-from kivy.uix.accordion import NumericProperty
-from kivy.uix.accordion import BooleanProperty
 from kivy.config import Config
-Config.set('graphics', 'fullscreen', 'auto')  
-Config.set('graphics', 'resizable', False)
+
+Config.set('graphics', 'fullscreen', '0')  
+Config.set('graphics', 'resizable', '1')
+
+
+
 from kivy.app import App
 from kivy.lang import Builder
 import os
-from kivy.properties import (
-    BooleanProperty, NumericProperty
-)
+
 from kivy.uix.screenmanager import ScreenManager, Screen
 from FillistMainMenu import FillistMainMenu
 from addFilmMenu import AddFilmMenu
 from redactFilmMenu import RedactFilmMenu
 from utils import load_kv_file
 from utils import get_resource_path
-
+from kivy.core.text import LabelBase
+from kivy.properties import NumericProperty
+from kivy.properties import BooleanProperty
 
 class mainScreen(Screen):
     pass
@@ -34,7 +36,7 @@ class FillistApp(App):
         film_to_redact = NumericProperty(-1)
         
         def build(self):
-            from kivy.core.text import LabelBase
+            
         # загрузка шрифтов
             font_path1 = get_resource_path('fonts/FreeCheese-Regular.otf')
             font_path2 = get_resource_path('fonts/Guidy.ttf')
@@ -60,4 +62,5 @@ class FillistApp(App):
             return sm
 
 if __name__ == '__main__':
+    
     FillistApp().run()
