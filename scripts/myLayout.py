@@ -10,7 +10,7 @@ from kivy.clock import Clock
 from myDropDown import StatusDropdown
 from myRating import CustomLayotForRating
 from myDataBase import myDataBase
-from myScrolingMenu import RV, StatefulLabel, RecycleGridLayout
+from myScrolingMenu import RV, StatefulLabel, MyRecycleGridLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from customButtonWith2States import CustomButtonWith2States
@@ -100,9 +100,14 @@ class myLayout(FloatLayout):
 # обработка списка фильмов  
     def setup_scroling_menu(self, dt = None):
         data_from_db = self.db.get_all_films()
+        k =  len(data_from_db)
+        new_height =k*80 + (k-1)*10
+        print(new_height)
         # print(data_from_db)
         if self.scroll_menu:
             self.scroll_menu.update_data(data_from_db)
+            Clock.schedule_once(lambda dt: self.scroll_menu.set_grid_layout_height(new_height), 0.2)
+            
 
             
 

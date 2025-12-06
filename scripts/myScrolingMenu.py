@@ -1,3 +1,4 @@
+from kivy.uix.filechooser import error
 from kivy.uix.actionbar import partial
 from kivy.uix.accordion import NumericProperty
 from kivy.uix.boxlayout import BoxLayout
@@ -6,12 +7,13 @@ from kivy.uix.recycleview.views import RecycleDataViewBehavior
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.image import Image
-from kivy.properties import BooleanProperty, StringProperty, NumericProperty
+from kivy.properties import BooleanProperty, StringProperty, NumericProperty,ObjectProperty
 from myDataBase import myDataBase
 from kivy.app import App
 from customButtonWith2States import CustomButtonWith2States
 from utils import get_resource_path
 from kivy.clock import Clock
+from kivy.uix.recyclegridlayout import RecycleGridLayout
 
 class CustomRatingImage(Image):
     pass
@@ -77,17 +79,14 @@ class StatefulLabel(RecycleDataViewBehavior, BoxLayout):
         app.film_to_redact = self.film_id
         app.root.current = "redactFilmMenuScreen"
 
-class RecycleGridLayout(GridLayout):
-    def __init__(self, **kwargs):
-        super(RecycleGridLayout, self).__init__(**kwargs)
-        self.bind(minimum_height=self.setter('height'))
-
+class MyRecycleGridLayout(RecycleGridLayout):
+        pass
+            
 class RV(RecycleView):
+    grid_layout = ObjectProperty(None)
     def __init__(self, data_list=None, **kwargs):
         super(RV, self).__init__(**kwargs)
         
-
-
         if data_list is None:
             # Данные по умолчанию, если список не передан
             data_list = [
@@ -95,5 +94,28 @@ class RV(RecycleView):
             ]
         self.data = data_list
 
+    def set_grid_layout_height(self, new_height):
+        
+        if self.grid_layout:
+            self.grid_layout.height = new_height
+            return True
+        else:
+            
+            if self.children:
+                for child in self.children:
+                    if isinstance(child, MyRecycleGridLayout):
+                        self.grid_layout = child
+                        self.grid_layout.height = new_height
+                        return True
+        return False
+    
     def update_data(self, new_data_list):
         self.data = new_data_list
+        k = len(new_data_list)
+        new_height = k*80 + (k-1)*10
+        print(new_height)
+        # После обновления данных нужно обновить высоту
+        if self.grid_layout:
+            Clock.schedule_once(lambda dt: self.set_grid_layout_height(new_height), 0.2)
+
+    

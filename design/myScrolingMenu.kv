@@ -95,7 +95,9 @@
 
 <RV>:
     viewclass: 'StatefulLabel'
-    RecycleGridLayout:
+    grid_layout: grid_layout_ref
+    MyRecycleGridLayout:
+        id: grid_layout_ref
         cols: 1
         size_hint_y: None
         height: self.minimum_height
