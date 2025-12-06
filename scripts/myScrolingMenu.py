@@ -11,6 +11,8 @@ from myDataBase import myDataBase
 from kivy.app import App
 from customButtonWith2States import CustomButtonWith2States
 from utils import get_resource_path
+from kivy.clock import Clock
+
 class CustomRatingImage(Image):
     pass
 
@@ -51,7 +53,7 @@ class StatefulLabel(RecycleDataViewBehavior, BoxLayout):
             self.parent.parent.update_data(new_data)
 
     def update_rating_images(self):
-        from kivy.clock import Clock
+        
         Clock.schedule_once(self._update_rating_images)
 
     def _update_rating_images(self, dt):

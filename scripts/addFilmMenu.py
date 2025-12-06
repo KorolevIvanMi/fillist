@@ -1,6 +1,6 @@
 from kivy.lang import Builder
 from utils import *
-load_kv_file('design/myDropDownAddAndRedact.kv')
+
 from myDropDownAddAndRedact import StatusDropdownAdd, CustomDropdownButtonAdd
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty

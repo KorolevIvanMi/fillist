@@ -2,13 +2,12 @@ from kivy.config import Config
 
 Config.set('graphics', 'fullscreen', '0')  
 Config.set('graphics', 'resizable', '1')
-
-
+Config.set('graphics', 'width', '1920')
+Config.set('graphics', 'height', '1080')
 
 from kivy.app import App
 from kivy.lang import Builder
 import os
-
 from kivy.uix.screenmanager import ScreenManager, Screen
 from FillistMainMenu import FillistMainMenu
 from addFilmMenu import AddFilmMenu
@@ -52,7 +51,7 @@ class FillistApp(App):
             load_kv_file('design/myLayout.kv')
             load_kv_file('design/addFilmMenu.kv')
             load_kv_file('design/redactFilmMenu.kv')
-            load_kv_file('design/myDropDownAddAndRedact.kv')
+            load_kv_file('design/myDropDownAddAndRedact.kv') 
 
         
             sm = ScreenManager()

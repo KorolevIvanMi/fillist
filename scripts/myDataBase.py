@@ -185,7 +185,7 @@ class myDataBase:
                         SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
                         JOIN genre ON filmlist.genre  = genre.genre_id
                         JOIN status ON filmlist.status = status.status_id
-                        ''')
+                        ORDER BY rating DESC''')
             results = cur.fetchall()
             films = []
             for row in results:
@@ -230,6 +230,7 @@ class myDataBase:
                             SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
                             JOIN genre ON filmlist.genre  = genre.genre_id
                             JOIN status ON filmlist.status = status.status_id
+                            ORDER BY rating DESC
                             ''')
             elif(film_rating == '' and film_status != "Все"):
                 cur.execute('''
@@ -237,6 +238,7 @@ class myDataBase:
                             JOIN genre ON filmlist.genre  = genre.genre_id
                             JOIN status ON filmlist.status = status.status_id
                             WHERE status.name = ? 
+                            ORDER BY rating DESC
                             ''', (film_status,))
             results = cur.fetchall()
             films = []
