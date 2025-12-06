@@ -95,18 +95,23 @@
 
 <RV>:
     viewclass: 'StatefulLabel'
+    scroll_type: ['bars', 'content']  # Только вертикальная прокрутка
+    bar_width: dp(5)
+    bar_margin: dp(-20)
+    scroll_y: 1 
     grid_layout: grid_layout_ref
+    do_scroll_x: False
+    do_scroll_y: True
     MyRecycleGridLayout:
         id: grid_layout_ref
         cols: 1
         size_hint_y: None
-        height: self.minimum_height
+        height: self.height
         default_size_hint: 1, None
         default_size: 0, dp(50)
         spacing: dp(10)
-        # Уменьшаем ширину на 40
-        size_hint_x: None
-        width: root.width/10 * 9.12
+        
+        
         canvas:
             Color:
                 rgba: 1,1,0, 0
