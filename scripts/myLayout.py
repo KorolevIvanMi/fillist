@@ -27,7 +27,7 @@ class myLayout(FloatLayout):
     status_button = ObjectProperty(None)
     scroll_menu = ObjectProperty(None) 
     
-
+    
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -43,12 +43,14 @@ class myLayout(FloatLayout):
         self.normal_increase_res = get_resource_path('images/buttons/increase_btn.png')
         self.down_increase_res = get_resource_path('images/buttons/increase_btn_down.png')
 
+        
         self.setup_status_dropdown()
         Clock.schedule_once(self.setup_scroling_menu, 0.1)
 
         app = App.get_running_app()
         app.bind(data_updated=self.on_data_updated)
 
+    
     def on_data_updated(self, instance, value):
         
         if value:  # Если флаг стал True
@@ -65,17 +67,15 @@ class myLayout(FloatLayout):
             self.scroll_menu.update_data(data_from_db)
             print("Данные успешно обновлены")
         
-# Поиск по названию
-    def searchOnPress(self):
-        text_to_find = self.search_text.text
-        self.search_text.text = ""
-        print("Search in progress...")
-        s = self.db.find_film_by_name(text_to_find)
-        if(text_to_find == "" or text_to_find == "all"):
+
+# Автоматический поиск
+    def auto_search(self, text):
+        if(text == "" or text == "all"):
             data_from_db = self.db.get_all_films()
             self.scroll_menu.update_data(data_from_db)
         else:
-            self.scroll_menu.update_data(s)
+            data_from_db = self.db.find_film_by_name(text)
+            self.scroll_menu.update_data(data_from_db)
 
 # обработка dropdown меню
     def setup_status_dropdown(self):

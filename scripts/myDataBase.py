@@ -10,8 +10,9 @@ def get_db_path():
         user_data_dir = os.path.join(os.path.expanduser('~'), 'Fillist')
         try:
             os.makedirs(user_data_dir, exist_ok=True)
+            os.path.join(user_data_dir, 'film_base')
             db_path = os.path.join(user_data_dir, 'film_base.db')
-            
+
             return db_path
         except Exception as e:
             

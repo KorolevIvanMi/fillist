@@ -59,18 +59,8 @@
         size: root.width/10*9.2, root.height/10*0.4
         pos: root.width/ 10*2.9, root.height/10 *9.3
 
-
+        on_text: root.auto_search(self.text)
     
-    CustomButtonWith2States:
-        size_hint: (None, None)
-        size: root.width/10* 0.33 , root.height/10*0.42
-        mipmap: True
-        fit_mode: "fill"
-        pos:  root.width/10 * 12.13, root.height/10* 9.3
-        normal_source: root.normal_search_res
-        down_source: root.down_search_res
-        on_release: root.searchOnPress()
-
     Label:
         color: (136/255,136/255,136/255)
         font_size: 25
