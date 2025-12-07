@@ -1,7 +1,6 @@
 import os
 import sqlite3 as sq
 import sys
-from utils import get_resource_path
 
 def get_db_path():
     """Универсальный путь к базе данных для Windows и Linux"""
