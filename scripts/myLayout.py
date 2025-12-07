@@ -25,8 +25,8 @@ class myLayout(FloatLayout):
     search_text = ObjectProperty(None)
     status_dropdown = None
     status_button = ObjectProperty(None)
-    
     scroll_menu = ObjectProperty(None) 
+    
 
 
     def __init__(self, **kwargs):
@@ -38,6 +38,10 @@ class myLayout(FloatLayout):
         self.down_del_res = get_resource_path('images/buttons/Delete_btn_down.png')
         self.normal_search_res = get_resource_path('images/buttons/Search_btn.png')
         self.down_search_res = get_resource_path('images/buttons/Search_btn_down.png')
+        self.normal_decrease_res = get_resource_path('images/buttons/Decrease_btn.png')
+        self.down_decrease_res = get_resource_path('images/buttons/Decrease_btn_down.png')
+        self.normal_increase_res = get_resource_path('images/buttons/increase_btn.png')
+        self.down_increase_res = get_resource_path('images/buttons/increase_btn_down.png')
 
         self.setup_status_dropdown()
         Clock.schedule_once(self.setup_scroling_menu, 0.1)
@@ -117,4 +121,13 @@ class myLayout(FloatLayout):
         self.status_button.text = "Все"
         self.rating_layout.recetChoice()
         data_from_db = self.db.get_all_films()
+        self.scroll_menu.update_data(data_from_db)
+
+# обработка сортиовки рейтинга по возрастанию и убыванию
+    def decrease_on_realise(self):
+        data_from_db = self.db.get_all_films()
+        self.scroll_menu.update_data(data_from_db)
+
+    def increase_on_realise(self):
+        data_from_db = self.db.get_all_films()[::-1]
         self.scroll_menu.update_data(data_from_db)

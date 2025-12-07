@@ -113,9 +113,7 @@ class RV(RecycleView):
         self.data = new_data_list
         k = len(new_data_list)
         new_height = k*75 + (k-1)*10
-        print(new_height)
+        # print(new_height)
         # После обновления данных нужно обновить высоту
         if self.grid_layout:
-            Clock.schedule_once(lambda dt: self.set_grid_layout_height(new_height), 0.2)
-
-    
+            Clock.schedule_once(lambda dt: self.set_grid_layout_height(new_height), 0.1)

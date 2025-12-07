@@ -5,7 +5,7 @@
     status_button: status_button 
     rating_layout: rating_layout 
     scroll_menu: scroll_menu
-
+    
     canvas: 
         Rectangle: 
             pos: self.pos
@@ -123,11 +123,29 @@
         size: root.width/10*0.25, root.height/10*0.34
         mipmap: True
         fit_mode: "fill"
-        pos:  root.width / 10 * 5.85, root.height/10 * 7.7
+        pos:  root.width / 10 * 5.8, root.height/10 * 7.7
         normal_source: root.normal_del_res
         down_source: root.down_del_res
         on_release: root.recet_filters()
+    CustomButtonWith2States:
+        size_hint: (None, None)
+        size: root.width/10*0.25, root.height/10*0.34
+        mipmap: True
+        fit_mode: "fill"
+        pos:  root.width / 10 * 6.3, root.height/10 * 7.7
+        normal_source: root.normal_decrease_res
+        down_source: root.down_decrease_res
+        on_release: root.decrease_on_realise()
 
+    CustomButtonWith2States:
+        size_hint: (None, None)
+        size: root.width/10*0.25, root.height/10*0.34
+        mipmap: True
+        fit_mode: "fill"
+        pos:  root.width / 10 * 6.6, root.height/10 * 7.7
+        normal_source: root.normal_increase_res
+        down_source: root.down_increase_res
+        on_release: root.increase_on_realise()
 
 
     RV:
