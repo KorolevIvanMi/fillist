@@ -151,12 +151,13 @@ class myDataBase:
             with sq.connect(self.db_path) as con:
                 con.row_factory = sq.Row 
                 cur = con.cursor()
-                cur.execute('''
+                film_name = f"%{film_name}%"
+                cur.execute(f'''
                             SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
                             JOIN genre ON filmlist.genre  = genre.genre_id
                             JOIN status ON filmlist.status = status.status_id
-                            WHERE filmlist.name = ?
-                            ''', (film_name,))
+                            WHERE filmlist.name LIKE ? 
+                            ''', (film_name, ))
                 results = cur.fetchall()
                 
                 films = []

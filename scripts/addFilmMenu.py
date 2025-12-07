@@ -75,5 +75,4 @@ class AddFilmMenu(Widget):
         if self.status_button:
             self.status_button.text = value
     def on_rating_selected(self, value):
-       
         print(f"Выбран рейтинг: {value}")
