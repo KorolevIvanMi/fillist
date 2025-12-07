@@ -1,4 +1,4 @@
-from kivy.uix.filechooser import error
+
 from kivy.uix.actionbar import partial
 from kivy.uix.accordion import NumericProperty
 from kivy.uix.boxlayout import BoxLayout
