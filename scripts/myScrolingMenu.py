@@ -1,6 +1,3 @@
-
-from kivy.uix.actionbar import partial
-from kivy.uix.accordion import NumericProperty
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.recycleview import RecycleView
 from kivy.uix.recycleview.views import RecycleDataViewBehavior
