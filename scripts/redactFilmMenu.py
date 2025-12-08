@@ -45,22 +45,27 @@ class RedactFilmMenu(Widget):
         self.rating_layout.set_rating(str(s["rating"]))
 
     def on_rating_selected(self, value):
-        print(f"Выбран рейтинг: {value}")
+        pass
 
     def setup_status_dropdown(self):
         #Настройка dropdown для статуса
         self.status_dropdown = StatusDropdownAdd()
         self.status_dropdown.bind(on_select=self.on_status_select)
+
     def open_status_dropdown(self):
-        print("Open dropDown")
+        
         #Открывает dropdown статуса
         if self.status_dropdown and self.status_button:
             self.status_dropdown.open(self.status_button)
-    def on_status_select(self, instance, value):
 
+    def on_status_select(self, instance, value):
+        if value == self.status_button.text:
+            self.status_button.text = "Все"
+        else:
         # Обновляем текст кнопки на выбранный статус
-        if self.status_button:
-            self.status_button.text = value            
+            if self.status_button:
+                self.status_button.text = value
+
     def save_changes(self):
         app = App.get_running_app()
         
@@ -72,7 +77,6 @@ class RedactFilmMenu(Widget):
         film_discription = self.film_description_txt.text
 
         isfilmin = self.db.update_data(film_id, film_name, film_genre, film_status, film_rating, film_discription )
-        print(isfilmin)
         if (isfilmin == 1):
             
 

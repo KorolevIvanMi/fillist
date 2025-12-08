@@ -92,15 +92,21 @@ class myLayout(FloatLayout):
 
         if value == "В процессе" or value == "В планах":
             self.rating_layout.recetChoice()
+        if value == self.status_button.text:
+            self.status_button.text = "Все"
+            self.apply_filters()
+        else:
         # Обновляем текст кнопки на выбранный статус
-        if self.status_button:
-            self.status_button.text = value
+            if self.status_button:
+                self.status_button.text = value
+                self.apply_filters()
 
 
 # Обработка выбора рейтинга
     def on_rating_selected(self, value):
-        pass
-        
+        self.apply_filters()
+
+
 # обработка списка фильмов  
     def setup_scroling_menu(self, dt = None):
         data_from_db = self.db.get_all_films()
@@ -116,6 +122,7 @@ class myLayout(FloatLayout):
         # print(film_status,"  ", film_rating)
         films_by_filtrs = self.db.find_films_with_filters(film_status, film_rating)
         self.scroll_menu.update_data(films_by_filtrs)
+        
 # сброс параметров фильмов
     def recet_filters(self):
         self.status_button.text = "Все"

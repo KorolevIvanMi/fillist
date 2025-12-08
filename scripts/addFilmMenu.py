@@ -65,14 +65,16 @@ class AddFilmMenu(Widget):
         self.status_dropdown.bind(on_select=self.on_status_select)
 
     def open_status_dropdown(self):
-        print("Open dropDown")
+        
         #Открывает dropdown статуса
         if self.status_dropdown and self.status_button:
             self.status_dropdown.open(self.status_button)
     def on_status_select(self, instance, value):
-
+        if value == self.status_button.text:
+            self.status_button.text = "Все"
+        else:
         # Обновляем текст кнопки на выбранный статус
-        if self.status_button:
-            self.status_button.text = value
+            if self.status_button:
+                self.status_button.text = value
     def on_rating_selected(self, value):
         print(f"Выбран рейтинг: {value}")
