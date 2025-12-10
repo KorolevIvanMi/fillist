@@ -44,7 +44,14 @@
         size: root.width/10, root.height/10 * 0.4
         pos: root.width / 10 * 2.85 , root.height/10 * 7.65
         font_name: "Guidy"
-    
+    Label:
+        color: (136/255,136/255,136/255)
+        font_size: 25
+        text: 'Жанр:'
+        size_hint: None, None
+        size: root.width/10, root.height/10 * 0.4
+        pos: root.width / 10 * 2.71 , root.height/10 * 7.22
+        font_name: "Guidy"
 
     TextInput:
         id: search_text
@@ -129,7 +136,7 @@
         size: root.width/10*0.25, root.height/10*0.34
         mipmap: True
         fit_mode: "fill"
-        pos:  root.width / 10 * 5.5, root.height/10 * 7.7
+        pos:  root.width / 10 * 6.3, root.height/10 *7.25
         normal_source: root.normal_del_res
         down_source: root.down_del_res
         on_release: root.recet_filters()
@@ -139,7 +146,7 @@
         size: root.width/10*0.25, root.height/10*0.34
         mipmap: True
         fit_mode: "fill"
-        pos:  root.width / 10 * 6, root.height/10 * 7.7
+        pos:  root.width / 10 * 6.8, root.height/10 *7.25
         normal_source: root.normal_decrease_res
         down_source: root.down_decrease_res
         on_release: root.decrease_on_realise()
@@ -150,7 +157,7 @@
         size: root.width/10*0.25, root.height/10*0.34
         mipmap: True
         fit_mode: "fill"
-        pos:  root.width / 10 * 6.3, root.height/10 * 7.7
+        pos:  root.width / 10 * 7.1, root.height/10 *7.25
         normal_source: root.normal_increase_res
         down_source: root.down_increase_res
         on_release: root.increase_on_realise()
