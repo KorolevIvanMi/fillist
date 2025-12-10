@@ -26,7 +26,7 @@ class myLayout(FloatLayout):
     status_dropdown = None
     status_button = ObjectProperty(None)
     scroll_menu = ObjectProperty(None) 
-    
+    genre_search_text = ObjectProperty(None)
     
 
     def __init__(self, **kwargs):
@@ -106,7 +106,9 @@ class myLayout(FloatLayout):
     def on_rating_selected(self, value):
         self.apply_filters()
 
-
+# обработка изменения жанра
+    def genre_change(self):
+        self.apply_filters()
 # обработка списка фильмов  
     def setup_scroling_menu(self, dt = None):
         data_from_db = self.db.get_all_films()
@@ -119,8 +121,9 @@ class myLayout(FloatLayout):
     def apply_filters(self):
         film_status = self.status_button.text
         film_rating = self.rating_layout.selected_rating
+        film_genre = self.genre_search_text.text
         # print(film_status,"  ", film_rating)
-        films_by_filtrs = self.db.find_films_with_filters(film_status, film_rating)
+        films_by_filtrs = self.db.find_films_with_filters(film_status, film_rating, film_genre)
         self.scroll_menu.update_data(films_by_filtrs)
         
 # сброс параметров фильмов

@@ -5,7 +5,7 @@
     status_button: status_button 
     rating_layout: rating_layout 
     scroll_menu: scroll_menu
-    
+    genre_search_text: genre_search_text
     canvas: 
         Rectangle: 
             pos: self.pos
@@ -15,6 +15,10 @@
         RoundedRectangle:
             pos: root.width/ 10*2.9, root.height/10 *9.3
             size: root.width/10*9.2, root.height/10*0.4
+            radius: [15,]
+        RoundedRectangle:
+            pos: root.width/ 10*4, root.height/10 *7.22
+            size: root.width/10*2, root.height/10*0.4
             radius: [15,]
     
     Label:
@@ -61,6 +65,24 @@
 
         on_text: root.auto_search(self.text)
     
+    TextInput:
+        id: genre_search_text
+        background_color: 0, 0, 0, 0  # Прозрачный фон самого TextInput
+        foreground_color: 0, 0, 0, 1  # Цвет текста - черный
+        cursor_color: 0, 0, 0, 1  # Цвет курсора
+        padding: [10, 6]  # Отступы для текста
+        multiline: False
+
+        # hint_text: "Жанр..."
+        # hint_text_color: 136/255, 136/255, 136/255, 1
+        font_name: "Guidy"
+        font_size: 25
+        
+        size_hint: None, None
+        pos: root.width/ 10*4, root.height/10 *7.22
+        size: root.width/10*2, root.height/10*0.4
+        on_text: root.genre_change()
+        
     Label:
         color: (136/255,136/255,136/255)
         font_size: 25

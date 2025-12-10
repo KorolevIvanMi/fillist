@@ -209,10 +209,12 @@ class myDataBase:
             cur.execute('''DELETE FROM filmlist where film_id = ?''', (film_id,))
             return 0
 
-    def find_films_with_filters(self, film_status, film_rating):
+    def find_films_with_filters(self, film_status, film_rating, film_genre):
+        film_genre = film_genre.strip().lower()
         with sq.connect(self.db_path) as con:
             con.row_factory = sq.Row 
             cur = con.cursor()
+            
             if(film_rating != '' and film_status != "Все"):
                 cur.execute('''
                             SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
@@ -244,6 +246,7 @@ class myDataBase:
                             ''', (film_status,))
             results = cur.fetchall()
             films = []
+            
             for row in results:
                 film_dict = {
                     'name': row['name'],
@@ -254,9 +257,11 @@ class myDataBase:
                     'film_id': row['film_id'],
                     'active': False,  
                 }
-                films.append(film_dict)
+                if film_genre == "" or  film_genre in row['genre_name'] :
+                    films.append(film_dict)
             return films
 
+    
     def add_film_to_bd(self, film_name, film_genre, film_status, film_rating, film_discription):
         film_name = film_name.strip()
         film_genre = film_genre.strip().lower()
