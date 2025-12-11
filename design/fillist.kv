@@ -40,7 +40,25 @@
         size: root.width/10* 0.55, root.height/10 * 0.98
         pos: root.width/10 * 8.4, root.height/10 * 0.1
         on_release:root.go_to_addScreen()
-
+    # CustomButtonWith2States:
+    #     size_hint: (None, None)
+        
+    #     mipmap: True
+    #     fit_mode: "fill"
+    #     size: root.width/10* 0.55, root.height/10 * 0.98
+    #     pos: root.width/10 * 0.42, root.height/10 * 0.1
+    #     normal_source: root.normal_export_res
+    #     down_source: root.down_export_res
+    CustomButtonWith2States:
+        size_hint: (None, None)
+        
+        mipmap: True
+        fit_mode: "fill"
+        size: root.width/10* 0.55, root.height/10 * 0.98
+        pos: root.width/10 * 1.04, root.height/10 * 0.1
+        normal_source: root.normal_export_res
+        down_source: root.down_export_res
+        
 
 
 <mainScreen>:

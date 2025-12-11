@@ -23,6 +23,10 @@ class CustomButtonToGoToOtherScreen(ButtonBehavior, Image):
     
 class FillistMainMenu(Widget):
     # переход на экран добавления фильма
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.normal_export_res = get_resource_path('images/buttons/Export_btn.png')
+        self.down_export_res = get_resource_path('images/buttons/Export_btn_down.png')
     def go_to_addScreen(self):
         app = App.get_running_app()
         app.root.current = "AddFilmMenuScreen"
