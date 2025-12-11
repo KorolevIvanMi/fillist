@@ -1,4 +1,4 @@
-from myDataBase import myDataBase
+from database import myDataBase
 import json
 def export( filename, indent=2):
     db = myDataBase()

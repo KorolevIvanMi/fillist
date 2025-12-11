@@ -21,7 +21,7 @@ def get_db_path():
         # В режиме разработки - используем папку dataBase в корне проекта
         script_dir = os.path.dirname(os.path.abspath(__file__))
         project_root = os.path.dirname(script_dir)
-        database_dir = os.path.join(project_root, 'dataBase')
+        database_dir = os.path.join(project_root, 'resources')
         
         # Создаем папку dataBase если её нет
         os.makedirs(database_dir, exist_ok=True)

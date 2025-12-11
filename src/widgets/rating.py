@@ -2,14 +2,14 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.properties import StringProperty
-from utils import get_resource_path
+from utils.helpers import get_resource_path
 
 class CustomButtonForRating(ButtonBehavior, Image):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.normal_source = get_resource_path('images/buttons/rating_btn_up600.png')
-        self.active_source = get_resource_path('images/buttons/rating_btn_down600.png')
-        self.pressed_source = get_resource_path('images/buttons/rating_btn_cur600.png')
+        self.normal_source = get_resource_path('resources/images/buttons/rating_btn_up600.png')
+        self.active_source = get_resource_path('resources/images/buttons/rating_btn_down600.png')
+        self.pressed_source = get_resource_path('resources/images/buttons/rating_btn_cur600.png')
 
         self.source = self.normal_source
         self.is_active = False

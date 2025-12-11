@@ -9,11 +9,10 @@ from kivy.app import App
 from kivy.lang import Builder
 import os
 from kivy.uix.screenmanager import ScreenManager, Screen
-from FillistMainMenu import FillistMainMenu
-from addFilmMenu import AddFilmMenu
-from redactFilmMenu import RedactFilmMenu
-from utils import load_kv_file
-from utils import get_resource_path
+from screens.main_menu import FillistMainMenu
+from screens.add_film import AddFilmMenu
+from screens.edit_film import RedactFilmMenu
+from utils.helpers import *
 from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty
 from kivy.properties import BooleanProperty
@@ -37,21 +36,21 @@ class FillistApp(App):
         def build(self):
             
         # загрузка шрифтов
-            font_path1 = get_resource_path('fonts/FreeCheese-Regular.otf')
-            font_path2 = get_resource_path('fonts/Guidy.ttf')
+            font_path1 = get_resource_path('resources/fonts/FreeCheese-Regular.otf')
+            font_path2 = get_resource_path('resources/fonts/Guidy.ttf')
 
             LabelBase.register(name='FreeCheese', fn_regular=font_path1)
             LabelBase.register(name='Guidy', fn_regular=font_path2)
 
         # загрузка файлов kv
-            load_kv_file('design/fillist.kv')
-            load_kv_file('design/myScrolingMenu.kv') 
-            load_kv_file('design/myRating.kv')
-            load_kv_file('design/myDropDown.kv')
-            load_kv_file('design/myLayout.kv')
-            load_kv_file('design/addFilmMenu.kv')
-            load_kv_file('design/redactFilmMenu.kv')
-            load_kv_file('design/myDropDownAddAndRedact.kv') 
+            load_kv_file('resources/kv/screens/add_film.kv')
+            load_kv_file('resources/kv/screens/edit_film.kv')
+            load_kv_file('resources/kv/screens/main_menu.kv')
+            load_kv_file('resources/kv/widgets/scrolling_menu.kv') 
+            load_kv_file('resources/kv/widgets/rating.kv')
+            load_kv_file('resources/kv/widgets/dropdown.kv')
+            load_kv_file('resources/kv/widgets/layout.kv')
+            load_kv_file('resources/kv/widgets/dropdown_add_edit.kv') 
 
         
             sm = ScreenManager()

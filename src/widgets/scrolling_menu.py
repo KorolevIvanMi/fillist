@@ -5,10 +5,10 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.properties import BooleanProperty, StringProperty, NumericProperty,ObjectProperty
-from myDataBase import myDataBase
+from database import myDataBase
 from kivy.app import App
-from customButtonWith2States import CustomButtonWith2States
-from utils import get_resource_path
+from widgets.button_with_2_states import CustomButtonWith2States
+from utils.helpers import get_resource_path
 from kivy.clock import Clock
 from kivy.uix.recyclegridlayout import RecycleGridLayout
 
@@ -28,10 +28,10 @@ class StatefulLabel(RecycleDataViewBehavior, BoxLayout):
     down_del_res = StringProperty("")
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.normal_redact_res = get_resource_path('images/buttons/Redact_btn.png')
-        self.down_redact_res = get_resource_path('images/buttons/Redact_btn_down.png')
-        self.normal_del_res = get_resource_path('images/buttons/Delete_btn.png')
-        self.down_del_res = get_resource_path('images/buttons/Delete_btn_down.png')
+        self.normal_redact_res = get_resource_path('resources/images/buttons/Redact_btn.png')
+        self.down_redact_res = get_resource_path('resources/images/buttons/Redact_btn_down.png')
+        self.normal_del_res = get_resource_path('resources/images/buttons/Delete_btn.png')
+        self.down_del_res = get_resource_path('resources/images/buttons/Delete_btn_down.png')
 
 
     def refresh_view_attrs(self, rv, index, data):
@@ -66,10 +66,10 @@ class StatefulLabel(RecycleDataViewBehavior, BoxLayout):
             if image_id in self.ids:
                 if i <= self.rating:
                     # Активная звезда
-                    self.ids[image_id].source = get_resource_path('images/buttons/rating_btn_down600.png')
+                    self.ids[image_id].source = get_resource_path('resources/images/buttons/rating_btn_down600.png')
                 else:
                     # Неактивная звезда
-                    self.ids[image_id].source = get_resource_path('images/buttons/rating_btn_up600.png')
+                    self.ids[image_id].source = get_resource_path('resources/images/buttons/rating_btn_up600.png')
 
     def go_to_update_film(self):
         app = App.get_running_app()

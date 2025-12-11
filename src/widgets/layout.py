@@ -7,14 +7,14 @@ from kivy.properties import (
     NumericProperty, ReferenceListProperty, ObjectProperty
 )
 from kivy.clock import Clock
-from myDropDown import StatusDropdown
-from myRating import CustomLayotForRating
-from myDataBase import myDataBase
-from myScrolingMenu import RV, StatefulLabel, MyRecycleGridLayout
+from widgets.dropdown import StatusDropdown
+from widgets.rating import CustomLayotForRating
+from database import myDataBase
+from widgets.scrolling_menu import RV, StatefulLabel, MyRecycleGridLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
-from customButtonWith2States import CustomButtonWith2States
-from utils import *
+from widgets.button_with_2_states import CustomButtonWith2States
+from utils.helpers import *
 
 
 class myLayout(FloatLayout):
@@ -32,16 +32,16 @@ class myLayout(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         
-        self.normal_apl_res = get_resource_path('images/buttons/Apply_btn.png')
-        self.down_apl_res = get_resource_path('images/buttons/Apply_btn_down.png')
-        self.normal_del_res = get_resource_path('images/buttons/Delete_btn.png')
-        self.down_del_res = get_resource_path('images/buttons/Delete_btn_down.png')
-        self.normal_search_res = get_resource_path('images/buttons/Search_btn.png')
-        self.down_search_res = get_resource_path('images/buttons/Search_btn_down.png')
-        self.normal_decrease_res = get_resource_path('images/buttons/Decrease_btn.png')
-        self.down_decrease_res = get_resource_path('images/buttons/Decrease_btn_down.png')
-        self.normal_increase_res = get_resource_path('images/buttons/increase_btn.png')
-        self.down_increase_res = get_resource_path('images/buttons/increase_btn_down.png')
+        self.normal_apl_res = get_resource_path('resources/images/buttons/Apply_btn.png')
+        self.down_apl_res = get_resource_path('resources/images/buttons/Apply_btn_down.png')
+        self.normal_del_res = get_resource_path('resources/images/buttons/Delete_btn.png')
+        self.down_del_res = get_resource_path('resources/images/buttons/Delete_btn_down.png')
+        self.normal_search_res = get_resource_path('resources/images/buttons/Search_btn.png')
+        self.down_search_res = get_resource_path('resources/images/buttons/Search_btn_down.png')
+        self.normal_decrease_res = get_resource_path('resources/images/buttons/Decrease_btn.png')
+        self.down_decrease_res = get_resource_path('resources/images/buttons/Decrease_btn_down.png')
+        self.normal_increase_res = get_resource_path('resources/images/buttons/increase_btn.png')
+        self.down_increase_res = get_resource_path('resources/images/buttons/increase_btn_down.png')
         
         
         self.setup_status_dropdown()

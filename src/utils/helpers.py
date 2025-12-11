@@ -11,7 +11,7 @@ def get_resource_path(relative_path):
         # В режиме разработки используем корневую директорию проекта
         script_dir = os.path.dirname(os.path.abspath(__file__))
         base_path = os.path.dirname(script_dir)  # Поднимаемся на уровень выше scripts
-    
+        base_path = os.path.dirname(base_path)
     full_path = os.path.join(base_path, relative_path)
     return full_path
 
