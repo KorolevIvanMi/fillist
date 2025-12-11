@@ -42,7 +42,8 @@ class myLayout(FloatLayout):
         self.down_decrease_res = get_resource_path('images/buttons/Decrease_btn_down.png')
         self.normal_increase_res = get_resource_path('images/buttons/increase_btn.png')
         self.down_increase_res = get_resource_path('images/buttons/increase_btn_down.png')
-
+        self.normal_export_res = get_resource_path('images/buttons/Export_btn.png')
+        self.down_export_res = get_resource_path('images/buttons/Export_btn_down.png')
         
         self.setup_status_dropdown()
         Clock.schedule_once(self.setup_scroling_menu, 0.1)
