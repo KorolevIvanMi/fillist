@@ -1,7 +1,7 @@
 <CustomRatingImage>:
     mipmap: True
-    size_hint: (None, None)
-    size: 30, 30
+    size_hint: None, None
+    size: dp(30), dp(30)
     fit_mode: "fill"
 
 <StatefulLabel>:
@@ -17,40 +17,40 @@
             radius: [dp(26),]
     Label:
         text: root.name
-        font_size: 20
+        font_size: '20sp'
         size_hint_x: 0.2
         text_size: self.size
         halign: 'left'
         valign: 'middle'
-        padding: (10,0)
+        padding: (dp(10),0)
         color: (0,0,0)
     
     Label:
         text: root.genre
         size_hint_x: 0.2
-        font_size: 20
+        font_size: '20sp'
         text_size: self.size
         halign: 'left'
         valign: 'middle'
-        padding: (10,0)
+        padding: (dp(10),0)
         color: (0,0,0)
     Label:
         text: root.status
         size_hint_x: 0.15
-        font_size: 20
+        font_size: '20sp'
         text_size: self.size
         halign: 'left'
         valign: 'middle'
-        padding: (10,0)
+        padding: (dp(10),0)
         color: (0,0,0)
     AnchorLayout:
         size_hint_x: 0.1
         anchor_x: 'left'
         anchor_y: 'center'
         BoxLayout:
-            size_hint: None, None
-            size: 150, 30
-            spacing: 5
+            size_hint: 1, None
+            height: dp(30)
+            spacing: dp(5)
             
             CustomRatingImage:
                 id: rating_btn_1
@@ -72,12 +72,13 @@
         anchor_x: 'left'
         anchor_y: 'center'
         BoxLayout:
-            size_hint: None, None
-            size: root.width/10*0.7, root.height/10*7.8
-            spacing: 5
+            size_hint: 0.75, 0.75
+            height: dp(30)
+            spacing: dp(5)
             
             CustomButtonWith2States:
-                size_hint_x: 0.5
+                size_hint: 0.5,1
+
                 mipmap: True
                 fit_mode: "fill"
 
@@ -106,7 +107,7 @@
         id: grid_layout_ref
         cols: 1
         size_hint_y: None
-        height: self.height
+        height: self.minimum_height
         default_size_hint: 1, None
         default_size: 0, dp(50)
         spacing: dp(10)

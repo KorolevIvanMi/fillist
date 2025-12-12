@@ -1,13 +1,5 @@
-#:kivy 2.3.1
-
-
-<CustomButtonToGoToOtherScreen>:
-    size_hint: (None, None)
-    
-    mipmap: True
-    fit_mode: "fill"
-
 <FillistMainMenu>:
+    
     canvas:
         Color: 
             rgb : 1, 1, 1
@@ -26,41 +18,33 @@
             pos: root.width/6, root.height - root.height/8
             size: root.width * 4 /6,  root.height / 8
     Label:
-        font_size: 100
-        center: root.center
-        pos: root.width/3.3,  root.height/20 * 17.6
+        font_size: '100sp'
+        pos_hint: {'x': 1/5.2, 'y': 8.8/10}
+        size_hint: None, None
+        size: self.texture_size
         text: "F i l l i s t"
         font_name: "FreeCheese"
     myLayout:
-        pos: root.width/6, 0
-        size: root.width*4/6, root.height - root.height/8
-    
+        pos_hint: {'x': 1.67/10, 'y': 0}
+        size_hint: 6.67/10, 8.75/10
 
     CustomButtonToGoToOtherScreen:
-        size: root.width/10* 0.55, root.height/10 * 0.98
-        pos: root.width/10 * 8.4, root.height/10 * 0.1
-        on_release:root.go_to_addScreen()
-    # CustomButtonWith2States:
-    #     size_hint: (None, None)
-        
-    #     mipmap: True
-    #     fit_mode: "fill"
-    #     size: root.width/10* 0.55, root.height/10 * 0.98
-    #     pos: root.width/10 * 0.42, root.height/10 * 0.1
-    #     normal_source: root.normal_export_res
-    #     down_source: root.down_export_res
-    CustomButtonWith2States:
-        size_hint: (None, None)
-        
+        size_hint: 0.55/10, 0.98/10
         mipmap: True
         fit_mode: "fill"
-        size: root.width/10* 0.55, root.height/10 * 0.98
-        pos: root.width/10 * 1.04, root.height/10 * 0.1
+        pos_hint: {'x': 8.4/10, 'y': 0.1/10}
+        on_release: root.go_to_addScreen()
+
+    CustomButtonWith2States:
+        size_hint: 0.55/10, 0.98/10
+        mipmap: True
+        fit_mode: "fill"
+        pos_hint: {'x': 1.04/10, 'y': 0.1/10}
         normal_source: root.normal_export_res
         down_source: root.down_export_res
         
 
-
 <mainScreen>:
     name: "mainScreen"
-    FillistMainMenu  
+    FillistMainMenu:
+        id: fillist_main_menu

@@ -4,9 +4,10 @@ from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.app import App
 from database import myDataBase
+from kivy.uix.floatlayout import FloatLayout
 from utils.helpers import *
 
-class RedactFilmMenu(Widget):
+class RedactFilmMenu(FloatLayout):
 
     
     db = myDataBase()

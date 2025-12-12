@@ -1,21 +1,18 @@
 <CustomDropdownButton>:
-    background_color: 0, 0, 0, 0  # Прозрачный фон
+    background_color: 0, 0, 0, 0  
     canvas.before:
         Color:
-            rgba: 136/255,136/255,136/255,1  # Цвет кнопки
+            rgba: 136/255,136/255,136/255,1  
         RoundedRectangle:
-            pos: self.pos  # Убрали смещение - используем обычную позицию
-            size: self.size # Чуть уменьшенная высота
+            pos: self.pos  
+            size: self.size 
             radius: [dp(12),]
-
-    
-    
     background_normal: ''
     color: 1, 1, 1, 1
     font_name: "Guidy"
-    font_size: 20
+    font_size: '20sp'
     size_hint_y: None
-    height: 25  # Уменьшенная высота для создания промежутков
+    height: dp(25)  
     
 
 <StatusDropdown>:
@@ -25,30 +22,21 @@
         Rectangle:
             pos: self.pos
             size: self.size
-    margin: [0, 1, 0, 1]
+    margin: [0, dp(1), 0, dp(1)]
 
 <CustomDropdownButtonAdd>:
-    background_color: 0, 0, 0, 0  # Прозрачный фон
+    background_color: 0, 0, 0, 0  
     canvas.before:
         Color:
-            rgba: 136/255,136/255,136/255,1  # Цвет кнопки
+            rgba: 136/255,136/255,136/255,1 
         RoundedRectangle:
-            pos: self.pos  # Убрали смещение - используем обычную позицию
-            size: self.size  # Убрали уменьшение высоты
-            radius: [dp(15),]  # Упростили радиус
+            pos: self.pos  
+            size: self.size  
+            radius: [dp(15),]  
 
     background_normal: ''
-    font_size: 20
+    font_size: '20sp'
     color: 1, 1, 1, 1
     font_name: "Guidy"
     size_hint_y: None
-    height: 36  # ИСПРАВЛЕНО: числовое значение вместо строки
-    
-
-# <StatusDropdownAdd>:
-#     canvas.before:
-#         Color:
-#             rgba: 136/255,136/255,136/255,0
-#         Rectangle:
-#             pos: self.pos
-#             size: self.size
+    height: dp(36)

@@ -1,5 +1,6 @@
 from kivy.uix.widget import Widget
 from widgets.layout import myLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.app import App
@@ -21,7 +22,7 @@ class CustomButtonToGoToOtherScreen(ButtonBehavior, Image):
         else:
             self.source = self.normal_source
     
-class FillistMainMenu(Widget):
+class FillistMainMenu(FloatLayout):
     # переход на экран добавления фильма
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
