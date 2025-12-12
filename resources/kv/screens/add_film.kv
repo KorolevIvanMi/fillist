@@ -1,4 +1,3 @@
-
 <AddFilmMenu>:
     
     status_button: status_button 
@@ -41,11 +40,9 @@
             radius: [15,]
     
     Label:
-        font_size: 100
-        size_hint: None, None
-        size: root.width/10*2.53, root.height/10* .7
-        center: root.center
-        pos: root.width/5.5,  root.height/20 * 17.8
+        font_size: sp(100)
+        size_hint: 2.53/10, 0.7/10
+        pos_hint: {"x": 1/5.5, "y": 17.8/20}
         text: "Add-film"
         font_name: "FreeCheese"
         canvas.before:
@@ -56,34 +53,28 @@
                 size: self.size
     
     CustomButtonWith2States:
-        size_hint: (None, None)
-        
         mipmap: True
         fit_mode: "fill"
-        size: root.width/10* 0.55, root.height/10 * 0.98
-        pos: root.width/10 * 8.4, root.height/10 * 0.1
+        size_hint: 0.55/10, 0.98/10
+        pos_hint: {"x": 8.4/10, "y": 0.1/10}
         normal_source: root.normal_apl_res
         down_source: root.down_apl_res
         on_release: root.acceptOnRelease()
     
     CustomButtonWith2States:
-        size_hint: (None, None)
-        
         mipmap: True
         fit_mode: "fill"
-        size: root.width/10* 0.55, root.height/10 *0.98
-        pos: root.width/10 * 9.02, root.height/10 * 0.1
+        size_hint: 0.55/10, 0.98/10
+        pos_hint: {"x": 9.02/10, "y": 0.1/10}
         normal_source: root.normal_get_back_res
         down_source: root.down_get_back_res
         on_release:root.getBackOnRelease()
     
     Label:
         color: (136/255,136/255,136/255)
-        font_size: 30
-        size_hint: None, None
-        size: root.width/10*1, root.height/10*0.3
-        center: root.center
-        pos: root.width/5.5,  root.height/10* 8.1
+        font_size: sp(30)
+        size_hint: 1/10, 0.3/10
+        pos_hint: {"x": 1/5.5, "y": 8.1/10}
         text: "Название:"
         font_name: "Guidy"
         
@@ -92,54 +83,43 @@
         color: (136/255,136/255,136/255)
         text: 'Жанр:'
         font_name: "Guidy"
-        font_size: 30
-        size_hint: None, None
-        center: root.center
-        size: root.width/10*0.5, root.height/10*0.3
-        pos: root.width / 10 * 1.91, root.height/10 * 7.45
+        font_size: sp(30)
+        size_hint: 0.5/10, 0.3/10
+        pos_hint: {"x": 1.91/10, "y": 7.45/10}
 
     
     Label:
         color: (136/255,136/255,136/255)
         text: 'Статус:'
         font_name: "Guidy"
-        font_size: 30
-        size_hint: None, None
-        center: root.center
-        size: root.width/10*0.5, root.height/10*0.3
-        pos: root.width / 10 * 1.93, root.height/10 * 6.84
+        font_size: sp(30)
+        size_hint: 0.5/10, 0.3/10
+        pos_hint: {"x": 1.93/10, "y": 6.84/10}
 
     
     Label:
         color: (136/255,136/255,136/255)
         text: 'Рейтинг:'
         font_name: "Guidy"
-        font_size: 30
-        size_hint: None, None
-        center: root.center
-        size: root.width/10*0.7, root.height/10*0.3
-        pos: root.width / 10 * 1.9, root.height/10 * 6.23
+        font_size: sp(30)
+        size_hint: 0.7/10, 0.3/10
+        pos_hint: {"x": 1.9/10, "y": 6.23/10}
         
     
     Label:
         color: (136/255,136/255,136/255)
         text: 'Комментарий:'
         font_name: "Guidy"
-        font_size: 30
-        size_hint: None, None
-        center: root.center
-        size: root.width/10 * 1.2, root.height/10*0.3
-        pos: root.width / 10 * 1.87, root.height/10 * 5.62
-
-    
+        font_size: sp(30)
+        size_hint: 1.2/10, 0.3/10
+        pos_hint: {"x": 1.87/10, "y": 5.62/10}
     TextInput:
         id: film_name_txt
         text: ''
-        size_hint: None, None
         multiline: False
-        pos:  root.width/10*2.92, root.height/ 10 * 8.07
-        size: root.width/10*2, root.height/10* 0.35
-        font_size: 20
+        pos_hint: {"x": 2.92/10, "y": 8.07/10}
+        size_hint: 2/10, 0.35/10
+        font_size: sp(20)
         background_color: 1, 1, 1, 0
         foreground_color: 0, 0, 0, 1
 
@@ -147,13 +127,11 @@
         id: film_genre_txt
         text: ''
         multiline: False
-        size_hint: None, None
-        pos: root.width/10*2.57, root.height/ 10 * 7.42
-        size: root.width/10*2, root.height/10* 0.35
-        font_size: 20
+        pos_hint: {"x": 2.57/10, "y": 7.42/10}
+        size_hint: 2/10, 0.35/10
+        font_size: sp(20)
         background_color: 1, 1, 1, 0
         foreground_color: 0, 0, 0, 1
-    
     Button:
         id: status_button
         background_color: 0, 0, 0, 0  
@@ -165,27 +143,25 @@
                 size: self.size
                 radius: [15,]
         text: 'Все'
-        size_hint: None, None
-        size: root.width/10*0.78, root.height/10 * 0.3
+        size_hint: 0.78/10, 0.3/10
         background_normal: ''
         color: 1, 1, 1, 1
         font_name: "Guidy"
-        font_size: 20
-        pos: root.width / 10 * 2.6  , root.height/10 * 6.84
+        font_size: sp(20)
+        pos_hint: {"x": 2.6/10, "y": 6.84/10}
         on_release: root.open_status_dropdown()
     
     CustomLayotForRating:
         id:rating_layout
-        pos: root.width /10 * 2.7, root.height/10 * 6.25
+        pos_hint: {"x": 2.7/10, "y": 6.25/10}
         on_selected_rating: root.on_rating_selected(args[1])
     
     TextInput:
         id: film_description_txt
         text: ''
-        size_hint: None, None
-        pos: root.width / 10 * 1.95, root.height/10*0.5
-        size: root.width/10 * 5.9, root.height/10*4.8
-        font_size: 20
+        pos_hint: {"x": 1.95/10, "y": 0.5/10}
+        size_hint: 5.9/10, 4.8/10
+        font_size: sp(20)
         background_color: 230/255, 230/255, 230/255, 0
         foreground_color: 0, 0, 0, 1
 <AddFilmMenuScreen>:

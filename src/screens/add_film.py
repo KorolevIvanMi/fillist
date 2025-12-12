@@ -1,3 +1,4 @@
+
 from kivy.lang import Builder
 from utils.helpers import *
 
@@ -11,11 +12,12 @@ from database import myDataBase
 from kivy.uix.button import Button
 from kivy.properties import ListProperty
 from kivy.uix.dropdown import DropDown
+from kivy.uix.floatlayout import FloatLayout
 
 
 
 
-class AddFilmMenu(Widget):
+class AddFilmMenu(FloatLayout):
     
     db = myDataBase()
     status_button = ObjectProperty(None)
