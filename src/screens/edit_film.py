@@ -1,5 +1,5 @@
 from kivy.uix.settings import text_type
-from widgets.dropdown_add_edit import StatusDropdownAdd, CustomDropdownButtonAdd
+from widgets.dropdown import StatusDropdownAdd
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty
 from kivy.app import App

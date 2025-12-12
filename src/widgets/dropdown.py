@@ -15,3 +15,12 @@ class StatusDropdown(DropDown):
             btn.bind(on_release = lambda btn: self.select(btn.text))
             self.add_widget(btn)
 
+class StatusDropdownAdd(DropDown):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.auto_width =200
+        statuses = ["Просмотрен", "В планах", "В процессе"]
+        for status in statuses:
+            btn = CustomDropdownButton(text = status)
+            btn.bind(on_release = lambda btn: self.select(btn.text))
+            self.add_widget(btn)
