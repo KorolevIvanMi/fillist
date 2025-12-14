@@ -6,6 +6,7 @@ from kivy.app import App
 from database import myDataBase
 from kivy.uix.floatlayout import FloatLayout
 from utils.helpers import *
+from widgets.warning import WarningForAdd
 
 class RedactFilmMenu(FloatLayout):
 
@@ -79,7 +80,25 @@ class RedactFilmMenu(FloatLayout):
 
         isfilmin = self.db.update_data(film_id, film_name, film_genre, film_status, film_rating, film_discription )
         if (isfilmin == 1):
-            
-
             app.data_updated = True
             app.root.current = "mainScreen"
+        else:
+            self.my_warning = WarningForAdd()
+            self.my_warning.pos_hint = {"x":0.4, "y": -0.1}
+            self.my_warning.size_hint = 0.2, 0.03
+            if isfilmin == 0:
+                self.my_warning.label_text = "Фильм уже существует!" 
+            elif isfilmin == 2:
+                self.my_warning.label_text = "Нужно выбрать статус!"    
+            elif isfilmin == 3:
+                self.my_warning.label_text = "Нужно ввести название!"
+            elif isfilmin == 4:
+                self.my_warning.label_text = "Нужно ввести жанр!"
+            self.add_widget(self.my_warning)        
+        
+            self.my_warning.appearing(callback= self.remove_warning)
+            
+    def remove_warning(self, *args):
+            # Проверяем, что виджет еще существует
+            if self.my_warning and self.my_warning in self.children:
+                self.remove_widget(self.my_warning)

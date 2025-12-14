@@ -50,6 +50,7 @@ class FillistApp(App):
             load_kv_file('resources/kv/widgets/rating.kv')
             load_kv_file('resources/kv/widgets/dropdown.kv')
             load_kv_file('resources/kv/widgets/layout.kv')
+            load_kv_file('resources/kv/widgets/warning.kv')
             # load_kv_file('resources/kv/widgets/dropdown_add_edit.kv') 
 
         

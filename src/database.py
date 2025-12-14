@@ -269,7 +269,7 @@ class myDataBase:
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
         if film_name == "" or film_name == " ":
-            return 0
+            return 3
         with sq.connect(self.db_path) as con:
             con.row_factory = sq.Row 
             cur = con.cursor()
@@ -307,7 +307,8 @@ class myDataBase:
                         genre_id = cur.lastrowid
                     else:
                         genre_id = films[0]['genre_id']
-                
+                else:
+                    return 4
                 status_id = -1
                 cur.execute('''SELECT * from status where LOWER(name) = LOWER(?)''', (film_status,))
                 results = cur.fetchall()
@@ -322,7 +323,7 @@ class myDataBase:
                 if films:
                     status_id = films[0]['status_id']
                 else:
-                    return 0
+                    return 2
                 
                 rating_id = film_rating
                 if rating_id == "":
@@ -370,9 +371,10 @@ class myDataBase:
         film_status = film_status.strip()
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
-
+        if film_genre == "":
+            return 4
         if film_name == "" or film_name == " ":
-            return 0
+            return 3
         with sq.connect(self.db_path) as con:
             con.row_factory = sq.Row 
             cur = con.cursor()
@@ -388,6 +390,7 @@ class myDataBase:
                 films.append(film_dict)
                 
             if not films:
+
                 cur.execute('''INSERT INTO genre(name) VALUES (?)''', (film_genre,))
                 genre_id = cur.lastrowid
             else:
@@ -407,7 +410,7 @@ class myDataBase:
             if films:
                 status_id = films[0]['status_id']
             else:
-                return 0
+                return 2
                 
             rating_id = film_rating
             if rating_id == "":
