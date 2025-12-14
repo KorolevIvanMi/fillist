@@ -20,7 +20,7 @@ class WarningForAdd(BoxLayout):
         
 
     def appearing(self, callback = None):
-        anim_ap = Animation(pos_hint = {'y':0.15}, duration= 1)
+        anim_ap = Animation(pos_hint = {'y':0.15}, duration= 0.4)
         anim_ap &= Animation(ft_color=[1, 1, 1, 1], duration=1)
         anim_ap &= Animation(bg_color=[1, 0, 0, 1], duration=1)
         anim_dis = Animation(bg_color=[1, 0, 0, 0], duration=1)
