@@ -1,6 +1,7 @@
 import os
 import sqlite3 as sq
 import sys
+import utils.requests  as rq
 
 def get_db_path():
     """Универсальный путь к базе данных для Windows и Linux"""
@@ -33,7 +34,7 @@ def get_db_path():
 class myDataBase:
     def __init__(self):
         self.db_path = get_db_path()
-        
+        self.con = sq.connect(self.db_path)
         self.db_init()
         
     def db_init(self):
@@ -87,8 +88,8 @@ class myDataBase:
         ]
         
         try:
-            with sq.connect(self.db_path) as con:
-                cur = con.cursor()
+            
+                cur = self.con.cursor()
 
                 cur.execute('''
                 CREATE TABLE IF NOT EXISTS status(
@@ -148,66 +149,25 @@ class myDataBase:
 
     
     def find_film_by_name(self, film_name):
+        film_name = f"%{film_name}%"
         try:
-            with sq.connect(self.db_path) as con:
-                con.row_factory = sq.Row 
-                cur = con.cursor()
-                film_name = f"%{film_name}%"
-                cur.execute(f'''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            WHERE filmlist.name LIKE ? 
-                            ''', (film_name, ))
-                results = cur.fetchall()
-                
-                films = []
-                for row in results:
-                    film_dict = {
-                        'name': row['name'],
-                        'genre': row['genre_name'],  
-                        'status': row['status_name'], 
-                        'rating': row['rating'],
-                        'description': row['description'], 
-                        'film_id': row['film_id'],
-                        'active': False,  
-                    }
-                    films.append(film_dict)
-                
-                return films
+            results = rq.get_film_by_name(film_name, self.con)
+            films = rq.get_films_dict(results)
+            return films
+
         except Exception as e:
             print(f"Error in find_film_by_name: {e}")
             return []
 
     def get_all_films(self):
-        with sq.connect(self.db_path) as con:
-            con.row_factory = sq.Row 
-            cur = con.cursor()
-            cur.execute('''
-                        SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                        JOIN genre ON filmlist.genre  = genre.genre_id
-                        JOIN status ON filmlist.status = status.status_id
-                        ORDER BY rating DESC''')
-            results = cur.fetchall()
-            films = []
-            for row in results:
-                film_dict = {
-                    'name': row['name'],
-                    'genre': row['genre_name'],  
-                    'status': row['status_name'], 
-                    'rating': row['rating'],
-                    'active': False,  
-                    'description': row['description'] , 
-                    'film_id': row['film_id']
-                }
-                films.append(film_dict)
-            return films
+
+        results = rq.get_all_films(self.con)
+        films = rq.get_films_dict(results)
+        return films
         
     def del_film(self, film_id):
-        with sq.connect(self.db_path) as con:
-            cur = con.cursor()
-            cur.execute('''DELETE FROM filmlist where film_id = ?''', (film_id,))
-            return 0
+        rq.delete_film(self.con, film_id)
+            
 
     def find_films_with_filters(self, film_status, film_rating, film_genre):
         film_genre = film_genre.strip().lower()
@@ -245,20 +205,8 @@ class myDataBase:
                             ORDER BY rating DESC
                             ''', (film_status,))
             results = cur.fetchall()
-            films = []
             
-            for row in results:
-                film_dict = {
-                    'name': row['name'],
-                    'genre': row['genre_name'],  
-                    'status': row['status_name'], 
-                    'rating': row['rating'],
-                    'description': row['description'], 
-                    'film_id': row['film_id'],
-                    'active': False,  
-                }
-                if film_genre == "" or  film_genre in row['genre_name'] :
-                    films.append(film_dict)
+            films = rq.get_films_dict(results, genre= film_genre)
             return films
 
     
@@ -350,21 +298,11 @@ class myDataBase:
                         JOIN status ON filmlist.status = status.status_id
                         WHERE filmlist.film_id = ?
                         ''', (film_id_int,))
-            result = cur.fetchone()
+            result = cur.fetchall()
             
-            if result:
-                film_dict = {
-                    'name': result['name'],
-                    'genre': result['genre_name'],  
-                    'status': result['status_name'], 
-                    'rating': result['rating'],
-                    'description': result['description'], 
-                    'film_id': result['film_id'],
-                    'active': False,  
-                }
-                return film_dict
-            return None
-                
+            films = rq.get_films_dict(result)
+            return films[0] if films else None
+        
     def update_data(self,film_id, film_name, film_genre, film_status, film_rating, film_discription):
         film_name = film_name.strip()
         film_genre = film_genre.strip().lower()
