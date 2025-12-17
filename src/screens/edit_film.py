@@ -32,6 +32,12 @@ class RedactFilmMenu(FloatLayout):
         self.setup_all_data()
 
     def getBackOnRelease(self):
+        self.film_name_txt.text = ""
+        self.film_genre_txt.text = ""
+        self.status_button.text = "Все"
+        self.rating_layout.set_rating("0")
+        self.film_description_txt.text = ""
+
         app = App.get_running_app()
         app.root.current = "mainScreen"
     
@@ -80,6 +86,11 @@ class RedactFilmMenu(FloatLayout):
 
         isfilmin = self.db.update_data(film_id, film_name, film_genre, film_status, film_rating, film_discription )
         if (isfilmin == 1):
+            self.film_name_txt.text = ""
+            self.film_genre_txt.text = ""
+            self.status_button.text = "Все"
+            self.rating_layout.set_rating("0")
+            self.film_description_txt.text = ""
             app.data_updated = True
             app.root.current = "mainScreen"
         else:

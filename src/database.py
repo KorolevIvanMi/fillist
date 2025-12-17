@@ -88,66 +88,12 @@ class myDataBase:
         ]
         
         try:
-            
-                cur = self.con.cursor()
+            rq.init(self.con, pre_films, statuses, pre_genres, ratings)
 
-                cur.execute('''
-                CREATE TABLE IF NOT EXISTS status(
-                status_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL)
-                ''')
-                
-                cur.execute('''
-                CREATE TABLE IF NOT EXISTS rating(
-                rating_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                value INTEGER NOT NULL)
-                ''')
-                
-                cur.execute('''
-                CREATE TABLE IF NOT EXISTS genre(
-                genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL)
-                ''')
-                
-                cur.execute('''
-                CREATE TABLE IF NOT EXISTS filmlist(
-                film_id INTEGER PRIMARY KEY AUTOINCREMENT,
-                name TEXT NOT NULL,
-                genre INTEGER NOT NULL,
-                status INTEGER NOT NULL,
-                rating INTEGER NOT NULL,
-                description TEXT NOT NULL)
-                ''')
-                
-                # Проверяем, есть ли уже данные в таблицах
-                cur.execute('SELECT COUNT(*) FROM status')
-                if cur.fetchone()[0] == 0:
-                    for status in statuses:
-                        cur.execute('INSERT INTO status (name) VALUES(?)', status)
-                
-                cur.execute('SELECT COUNT(*) FROM rating')
-                if cur.fetchone()[0] == 0:
-                    for rating in ratings:
-                        cur.execute('INSERT INTO rating (value) VALUES(?)', rating)
-                
-                cur.execute('SELECT COUNT(*) FROM genre')
-                if cur.fetchone()[0] == 0:
-                    for genre in pre_genres:
-                        cur.execute('INSERT INTO genre (name) VALUES(?)', genre)
-                
-                cur.execute('SELECT COUNT(*) FROM filmlist')
-                if cur.fetchone()[0] == 0:
-                    for film in pre_films:
-                        cur.execute('''INSERT INTO filmlist (name, genre, status, rating, description) 
-                                    VALUES(?, ?, ?, ?, ?)''', film)
-                
-                print("Database initialized successfully!")
-                
         except Exception as e:
             print(f"Error initializing database: {e}")
             print(f"DB path was: {self.db_path}")
 
-    
     def find_film_by_name(self, film_name):
         film_name = f"%{film_name}%"
         try:
@@ -167,48 +113,13 @@ class myDataBase:
         
     def del_film(self, film_id):
         rq.delete_film(self.con, film_id)
-            
-
+        
     def find_films_with_filters(self, film_status, film_rating, film_genre):
         film_genre = film_genre.strip().lower()
-        with sq.connect(self.db_path) as con:
-            con.row_factory = sq.Row 
-            cur = con.cursor()
-            
-            if(film_rating != '' and film_status != "Все"):
-                cur.execute('''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            WHERE status.name = ? AND rating = ?
-                            ''', (film_status, film_rating))
-            elif(film_rating != '' and film_status == "Все"):
-                cur.execute('''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            WHERE rating = ?
-                            ''', (film_rating,))    
-            elif(film_rating == '' and film_status == "Все"):
-                cur.execute('''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            ORDER BY rating DESC
-                            ''')
-            elif(film_rating == '' and film_status != "Все"):
-                cur.execute('''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            WHERE status.name = ? 
-                            ORDER BY rating DESC
-                            ''', (film_status,))
-            results = cur.fetchall()
-            
-            films = rq.get_films_dict(results, genre= film_genre)
-            return films
-
+        
+        results = rq.get_film_with_filters(self.con, film_status, film_rating, film_genre)
+        films = rq.get_films_dict(results, genre= film_genre)
+        return films
     
     def add_film_to_bd(self, film_name, film_genre, film_status, film_rating, film_discription):
         film_name = film_name.strip()
@@ -216,92 +127,15 @@ class myDataBase:
         film_status = film_status.strip()
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
-        if film_name == "" or film_name == " ":
-            return 3
-        with sq.connect(self.db_path) as con:
-            con.row_factory = sq.Row 
-            cur = con.cursor()
-            
-            cur.execute('''
-                SELECT filmlist.name, filmlist.genre as genre_id, 
-                    genre.name as genre_name, status.name as status_name, 
-                    rating, filmlist.description, filmlist.film_id 
-                FROM filmlist
-                JOIN genre ON filmlist.genre = genre.genre_id
-                JOIN status ON filmlist.status = status.status_id
-                WHERE LOWER(filmlist.name) = LOWER(?) 
-                AND LOWER(genre.name) = LOWER(?)
-                AND LOWER(status.name) = LOWER(?)
-                AND rating = ?
-            ''', (film_name, film_genre, film_status, film_rating))
-            
-            results = cur.fetchall()
-            
-            if not results:
-                if film_genre != "":
-                    genre_id = -1
-                    cur.execute('''SELECT * from genre where LOWER(name) = LOWER(?)''', (film_genre,))
-                    results = cur.fetchall()
-                    films = []
-                    for row in results:
-                        film_dict = {
-                            'name': row['name'],
-                            'genre_id': row['genre_id']
-                        }
-                        films.append(film_dict)
-                    
-                    if not films:
-                        cur.execute('''INSERT INTO genre(name) VALUES (?)''', (film_genre,))
-                        genre_id = cur.lastrowid
-                    else:
-                        genre_id = films[0]['genre_id']
-                else:
-                    return 4
-                status_id = -1
-                cur.execute('''SELECT * from status where LOWER(name) = LOWER(?)''', (film_status,))
-                results = cur.fetchall()
-                films = []
-                for row in results:
-                    film_dict = {
-                        'name': row['name'],
-                        'status_id': row['status_id']
-                    }
-                    films.append(film_dict)
-                
-                if films:
-                    status_id = films[0]['status_id']
-                else:
-                    return 2
-                
-                rating_id = film_rating
-                if rating_id == "":
-                    rating_id = "0"
-                
-                cur.execute('''INSERT INTO filmlist(name, genre, status, rating, description) VALUES (?, ?, ?, ?, ?)''', 
-                            (film_name, genre_id, status_id, rating_id, film_discription))
-                
-                con.commit()
-                return 1
-            else:
-                return 0
+        
+        res = rq.add_film_to_bd(self.con,film_name, film_genre, film_status, film_rating, film_discription)
+        return res
 
     def find_film_by_id(self, film_id):
-        with sq.connect(self.db_path) as con:
-            con.row_factory = sq.Row 
-            cur = con.cursor()
-            film_id_int = int(film_id)
-            cur.execute('''
-                        SELECT filmlist.name, genre.name as genre_name, status.name as status_name, 
-                            rating, filmlist.description, filmlist.film_id 
-                        FROM filmlist
-                        JOIN genre ON filmlist.genre = genre.genre_id
-                        JOIN status ON filmlist.status = status.status_id
-                        WHERE filmlist.film_id = ?
-                        ''', (film_id_int,))
-            result = cur.fetchall()
-            
-            films = rq.get_films_dict(result)
-            return films[0] if films else None
+        
+        result = rq.get_film_by_id(self.con, film_id)
+        films = rq.get_films_dict(result)
+        return films[0] if films else None
         
     def update_data(self,film_id, film_name, film_genre, film_status, film_rating, film_discription):
         film_name = film_name.strip()
@@ -309,51 +143,7 @@ class myDataBase:
         film_status = film_status.strip()
         film_rating = str(film_rating).strip() if film_rating else "0"
         film_discription = film_discription.strip()
-        if film_genre == "":
-            return 4
-        if film_name == "" or film_name == " ":
-            return 3
-        with sq.connect(self.db_path) as con:
-            con.row_factory = sq.Row 
-            cur = con.cursor()
-            genre_id = -1
-            cur.execute('''SELECT * from genre where LOWER(name) = LOWER(?)''', (film_genre,))
-            results = cur.fetchall()
-            films = []
-            for row in results:
-                film_dict = {
-                    'name': row['name'],
-                    'genre_id': row['genre_id']
-                }
-                films.append(film_dict)
-                
-            if not films:
+        
+        res = rq.update_film_data(self.con ,film_id, film_name, film_genre, film_status, film_rating, film_discription)
 
-                cur.execute('''INSERT INTO genre(name) VALUES (?)''', (film_genre,))
-                genre_id = cur.lastrowid
-            else:
-                genre_id = films[0]['genre_id']
-                
-            status_id = -1
-            cur.execute('''SELECT * from status where LOWER(name) = LOWER(?)''', (film_status,))
-            results = cur.fetchall()
-            films = []
-            for row in results:
-                film_dict = {
-                    'name': row['name'],
-                    'status_id': row['status_id']
-                }
-                films.append(film_dict)
-                
-            if films:
-                status_id = films[0]['status_id']
-            else:
-                return 2
-                
-            rating_id = film_rating
-            if rating_id == "":
-                rating_id = "0"
-            cur.execute('''UPDATE filmlist 
-                        set genre = ?, status = ? , rating = ?,  description= ?
-                        WHERE film_id = ?''', (genre_id, status_id, rating_id, film_discription,film_id))
-            return 1
+        return res

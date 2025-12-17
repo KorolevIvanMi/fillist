@@ -63,7 +63,6 @@ class CustomLayotForRating(BoxLayout):
             button.source = button.normal_source
             button.is_active = False
 
-    # Добавляем метод для программной установки рейтинга
     def set_rating(self, rating_value):
         
         """Установить рейтинг программно (без нажатия кнопки)"""
