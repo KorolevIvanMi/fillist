@@ -78,11 +78,11 @@ def get_film_by_name(film_name, con):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute(f'''
-                            SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                            JOIN genre ON filmlist.genre  = genre.genre_id
-                            JOIN status ON filmlist.status = status.status_id
-                            WHERE filmlist.name LIKE ? 
-                            ''', (film_name, ))
+        SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
+        JOIN genre ON filmlist.genre  = genre.genre_id
+        JOIN status ON filmlist.status = status.status_id
+        WHERE filmlist.name LIKE ? 
+        ''', (film_name, ))
     results = cur.fetchall()
     return results
 
@@ -90,10 +90,10 @@ def get_all_films(con):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute('''
-                        SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                        JOIN genre ON filmlist.genre  = genre.genre_id
-                        JOIN status ON filmlist.status = status.status_id
-                        ORDER BY rating DESC''')
+        SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
+        JOIN genre ON filmlist.genre  = genre.genre_id
+        JOIN status ON filmlist.status = status.status_id
+        ORDER BY rating DESC''')
     results = cur.fetchall()
     return results
 
@@ -107,9 +107,9 @@ def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = 
     cur = con.cursor()
 
     base_req = ''' SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
-                JOIN genre ON filmlist.genre  = genre.genre_id
-                JOIN status ON filmlist.status = status.status_id
-                '''
+        JOIN genre ON filmlist.genre  = genre.genre_id
+        JOIN status ON filmlist.status = status.status_id
+        '''
     
     if(film_rating != '' and film_status != "Все"):
         base_req += '''WHERE status.name = ? AND rating = ?'''
