@@ -14,7 +14,10 @@ class CustomButtonToGoToOtherScreen(ButtonBehavior, Image):
 
         self.source = self.normal_source
         self.is_active = False
-
+        
+        app = App.get_running_app()
+        if app:
+            app.main_menu = self
     def on_state(self, instance, value):
         if value == 'down':
             # Кнопка нажата, но еще не отпущена
