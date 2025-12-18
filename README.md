@@ -4,6 +4,7 @@
 2. Добавлена возможность отсортировать фильмы по возрастанию рейтинга или убывания
 3. Был слегка изменён дизайн, а именно заменены шрифты и сделано маштабирование
 4. Была исправлена ошибка с scrolling menu, когда нельзя было пролестнуть  ниже определённого уровня.
+5. Были добавлены горячие клавиши : f11 - перехож в оконный режим, ctrl+n - добавление нового фильма, ctrl+b возврат из меню добавления или редактирования фильма, ctrl+s - сохранение изменений или добавление фильма (подтверждение добавления)
 
 Если скачаете себе приложение, то буду крайне рад, спасибо всем.
 
@@ -13,5 +14,5 @@ Greetings to everyone in version 1.1! This program was created to help people ke
 2. Added the ability to sort films by ascending or descending rating.
 3. The design has been slightly changed, specifically fonts have been replaced and scaling has been implemented.
 4. Fixed a bug with the swipe menu where scrolling below a certain level was not possible.
-
+5. Hotkeys were added: f11 - switch to windowed mode, ctrl+n - add a new movie, ctrl+b - go back from the movie addition or editing menu, ctrl+s - save changes or add a movie (confirm addition).
 If you download the app for yourself, I will be extremely grateful. Thank you all.
