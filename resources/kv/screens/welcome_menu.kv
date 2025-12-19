@@ -1,0 +1,142 @@
+<WelcomeMenu>:
+    main_menu_btn:main_menu_btn
+
+    orientation: 'horizontal'
+    
+    canvas: 
+        Color: 
+            rgba: 1,1,1,1
+        Rectangle: 
+            size: self.size
+        Color:
+            rgb: 167/255, 115/255, 187/255
+            # rgb: 1, 1, 1
+        Rectangle:
+            pos: 0, 0
+            size: root.width /6 , root.height
+        Rectangle:
+            pos: root.width * 5/6, 0
+            size: root.width * 1 / 6 , root.height
+        Rectangle:
+            pos: root.width/6, root.height - root.height/8
+            size: root.width * 4 /6,  root.height / 8
+    BoxLayout:
+        pos_hint: {'x': 1.665/10, 'y': 0}
+        size_hint: 6.67/10, 8.75/10
+        orientation: 'vertical'
+        Widget:
+            size_hint: 1, 0.5
+
+        Button:
+            id: main_menu_btn
+            background_color: 0, 0, 0, 0  # Прозрачный фон
+            canvas.before:
+                Color:
+                    rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(50),]
+            size_hint: (0.5, 0.3)
+            pos_hint: {'center_x': 0.5}
+            background_normal: ''
+            color: 1, 1, 1, 1
+            font_name: "Guidy"
+            font_size: '20sp'
+            text: "main_menu"
+            on_press:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+            on_release:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+                root.go_to_main_menu()
+
+        Widget:
+            size_hint: 1, 0.1
+
+        Button:
+            background_color: 0, 0, 0, 0  # Прозрачный фон
+            canvas.before:
+                Color:
+                    rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(50),]
+            size_hint: (0.5, 0.3)
+            pos_hint: {'center_x': 0.5}
+            background_normal: ''
+            color: 1, 1, 1, 1
+            font_name: "Guidy"
+            font_size: '20sp'
+            text: "Setting"
+            on_press:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+            on_release:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+                # root.go_to_main_menu()
+
+
+        Widget:
+            size_hint: 1, 0.1
+
+        Button:
+            background_color: 0, 0, 0, 0  # Прозрачный фон
+            canvas.before:
+                Color:
+                    rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(50),]
+            size_hint: (0.5, 0.3)
+            pos_hint: {'center_x': 0.5}
+            background_normal: ''
+            color: 1, 1, 1, 1
+            font_name: "Guidy"
+            font_size: '20sp'
+            text: "Export/import"
+            on_press:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+            on_release:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+                # root.go_to_main_menu()
+
+
+        Widget:
+            size_hint: 1, 0.1
+
+        Button:
+            background_color: 0, 0, 0, 0  # Прозрачный фон
+            canvas.before:
+                Color:
+                    rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+                RoundedRectangle:
+                    pos: self.pos
+                    size: self.size
+                    radius: [dp(50),]
+            size_hint: (0.5, 0.3)
+            pos_hint: {'center_x': 0.5}
+            background_normal: ''
+            color: 1, 1, 1, 1
+            font_name: "Guidy"
+            font_size: '20sp'
+            text: "Exit"
+            on_press:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+            on_release:
+                self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+                app.stop()
+
+
+        Widget:
+            size_hint: 1, 0.5
+        
+
+
+    
+
+<welcomeScreen>:
+    name: "welcomeScreen"
+    WelcomeMenu:
+        id: welcome_menu
+            

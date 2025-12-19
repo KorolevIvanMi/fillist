@@ -8,10 +8,14 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from screens.main_menu import FillistMainMenu
 from screens.add_film import AddFilmMenu
 from screens.edit_film import RedactFilmMenu
+from screens.welcome_menu import WelcomeMenu
 from utils.helpers import *
 from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty
 from kivy.properties import BooleanProperty
+
+class welcomeScreen(Screen):
+    pass
 
 class mainScreen(Screen):
     pass
@@ -42,14 +46,15 @@ class FillistApp(App):
         load_kv_file('resources/kv/screens/add_film.kv')
         load_kv_file('resources/kv/screens/edit_film.kv')
         load_kv_file('resources/kv/screens/main_menu.kv')
+        load_kv_file('resources/kv/screens/welcome_menu.kv')
         load_kv_file('resources/kv/widgets/scrolling_menu.kv') 
         load_kv_file('resources/kv/widgets/rating.kv')
         load_kv_file('resources/kv/widgets/dropdown.kv')
         load_kv_file('resources/kv/widgets/layout.kv')
         load_kv_file('resources/kv/widgets/warning.kv')
-        # load_kv_file('resources/kv/widgets/dropdown_add_edit.kv') 
 
         sm = ScreenManager()
+        sm.add_widget(welcomeScreen())
         sm.add_widget(mainScreen())
         sm.add_widget(AddFilmMenuScreen())
         sm.add_widget(RedactFilmMenuScreen())

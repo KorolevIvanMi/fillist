@@ -121,7 +121,7 @@ def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = 
         base_req += '''ORDER BY rating DESC'''
         cur.execute(base_req)
     elif film_rating == '' and film_status != "Все":
-        base_req += '''WHERE WHERE status.name = ? ORDER BY rating DESC'''
+        base_req += '''WHERE status.name = ? ORDER BY rating DESC'''
         cur.execute(base_req, (film_status,))
     results = cur.fetchall()
     return results
