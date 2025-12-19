@@ -20,6 +20,15 @@
         Rectangle:
             pos: root.width/6, root.height - root.height/8
             size: root.width * 4 /6,  root.height / 8
+    Label:
+        font_size: '100sp'
+        pos_hint: {'x': 1/5.2, 'y': 8.8/10}
+        size_hint: None, None
+        size: self.texture_size
+        text: "F i l l i s t"
+        font_name: "FreeCheese"
+
+
     BoxLayout:
         pos_hint: {'x': 1.665/10, 'y': 0}
         size_hint: 6.67/10, 8.75/10
@@ -42,8 +51,8 @@
             background_normal: ''
             color: 1, 1, 1, 1
             font_name: "Guidy"
-            font_size: '20sp'
-            text: "main_menu"
+            font_size: '40sp'
+            text: "Главное меню"
             on_press:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
@@ -67,8 +76,8 @@
             background_normal: ''
             color: 1, 1, 1, 1
             font_name: "Guidy"
-            font_size: '20sp'
-            text: "Setting"
+            font_size: '40sp'
+            text: "Настройки"
             on_press:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
@@ -93,8 +102,8 @@
             background_normal: ''
             color: 1, 1, 1, 1
             font_name: "Guidy"
-            font_size: '20sp'
-            text: "Export/import"
+            font_size: '40sp'
+            text: "Экспорт/импорт"
             on_press:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
@@ -119,8 +128,8 @@
             background_normal: ''
             color: 1, 1, 1, 1
             font_name: "Guidy"
-            font_size: '20sp'
-            text: "Exit"
+            font_size: '40sp'
+            text: "Выход"
             on_press:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
@@ -130,7 +139,14 @@
 
         Widget:
             size_hint: 1, 0.5
-        
+    CustomButtonWith2States:
+        size_hint: 0.55/10, 0.98/10
+        mipmap: True
+        fit_mode: "fill"
+        pos_hint: {'x': 8.4/10, 'y': 0.1/10}
+        normal_source: root.normal_prof_res
+        down_source: root.down_prof_res
+        # on_release: root.go_to_home()
 
 
     
