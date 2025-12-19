@@ -29,8 +29,11 @@ class FillistMainMenu(FloatLayout):
     # переход на экран добавления фильма
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.normal_export_res = get_resource_path('resources/images/buttons/Export_btn.png')
-        self.down_export_res = get_resource_path('resources/images/buttons/Export_btn_down.png')
+        self.normal_home_res = get_resource_path('resources/images/buttons/Home_btn.png')
+        self.down_home_res = get_resource_path('resources/images/buttons/Home_btn_down.png')
     def go_to_addScreen(self):
         app = App.get_running_app()
         app.root.current = "AddFilmMenuScreen"
+    def go_to_home(self):
+        app = App.get_running_app()
+        app.root.current = "welcomeScreen"

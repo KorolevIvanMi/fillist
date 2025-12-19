@@ -93,6 +93,15 @@ def bind_keyboard_to_app(app_class):
                         if hasattr(fillist_menu, 'getBackOnRelease'):
                             fillist_menu.getBackOnRelease()
                             return True
+                elif current_screen and current_screen.name == "mainScreen":
+                    
+                    if hasattr(current_screen, 'ids') and 'fillist_main_menu' in current_screen.ids:
+                        fillist_menu = current_screen.ids.fillist_main_menu
+                        
+                        # Проверяем, что у него есть нужный метод
+                        if hasattr(fillist_menu, 'go_to_home'):
+                            fillist_menu.go_to_home()
+                            return True
         return False
     # Заменяем методы
     app_class.build = new_build
