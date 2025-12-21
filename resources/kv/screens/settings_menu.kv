@@ -1,0 +1,43 @@
+<SettingsMenu>:
+    
+    
+    canvas: 
+        Color: 
+            rgba: 1,1,1,1
+        Rectangle: 
+            size: self.size
+        Color:
+            rgb: 167/255, 115/255, 187/255
+            # rgb: 1, 1, 1
+        Rectangle:
+            pos: 0, 0
+            size: root.width /6 , root.height
+        Rectangle:
+            pos: root.width * 5/6, 0
+            size: root.width * 1 / 6 , root.height
+        Rectangle:
+            pos: root.width/6, root.height - root.height/8
+            size: root.width * 4 /6,  root.height / 8
+    Label:
+        font_size: '100sp'
+        pos_hint: {'x': 1/5.2, 'y': 8.8/10}
+        size_hint: None, None
+        size: self.texture_size
+        text: "Settings"
+        font_name: "FreeCheese"
+    CustomButtonWith2States:
+        size_hint: 0.55/10, 0.98/10
+        mipmap: True
+        fit_mode: "fill"
+        pos_hint: {'x': 1.04/10, 'y': 0.1/10}
+        normal_source: root.normal_home_res
+        down_source: root.down_home_res
+        on_release: root.go_to_home()
+
+    
+
+<settingsScreen>:
+    name: "settingsScreen"
+    SettingsMenu:
+        id: setting_menu
+            

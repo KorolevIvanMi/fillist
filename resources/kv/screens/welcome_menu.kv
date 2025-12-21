@@ -1,7 +1,4 @@
 <WelcomeMenu>:
-    main_menu_btn:main_menu_btn
-
-    orientation: 'horizontal'
     
     canvas: 
         Color: 
@@ -37,7 +34,7 @@
             size_hint: 1, 0.5
 
         Button:
-            id: main_menu_btn
+            
             background_color: 0, 0, 0, 0  # Прозрачный фон
             canvas.before:
                 Color:
@@ -63,6 +60,7 @@
             size_hint: 1, 0.1
 
         Button:
+            
             background_color: 0, 0, 0, 0  # Прозрачный фон
             canvas.before:
                 Color:
@@ -82,7 +80,7 @@
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
-                # root.go_to_main_menu()
+                root.go_to_settings_menu()
 
 
         Widget:
@@ -108,7 +106,7 @@
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
             on_release:
                 self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
-                # root.go_to_main_menu()
+                root.go_to_export_import_menu()
 
 
         Widget:
@@ -146,7 +144,7 @@
         pos_hint: {'x': 8.4/10, 'y': 0.1/10}
         normal_source: root.normal_prof_res
         down_source: root.down_prof_res
-        # on_release: root.go_to_home()
+        on_release: root.go_to_profile_menu()
 
 
     

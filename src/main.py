@@ -9,10 +9,22 @@ from screens.main_menu import FillistMainMenu
 from screens.add_film import AddFilmMenu
 from screens.edit_film import RedactFilmMenu
 from screens.welcome_menu import WelcomeMenu
+from screens.settings_menu import SettingsMenu
+from screens.export_import import ExportImportMenu
+from screens.profile import ProfileMenu
 from utils.helpers import *
 from kivy.core.text import LabelBase
 from kivy.properties import NumericProperty
 from kivy.properties import BooleanProperty
+
+class profileScreen(Screen):
+    pass
+
+class exportImportScreen(Screen):
+    pass
+
+class settingsScreen(Screen):
+    pass 
 
 class welcomeScreen(Screen):
     pass
@@ -47,6 +59,9 @@ class FillistApp(App):
         load_kv_file('resources/kv/screens/edit_film.kv')
         load_kv_file('resources/kv/screens/main_menu.kv')
         load_kv_file('resources/kv/screens/welcome_menu.kv')
+        load_kv_file('resources/kv/screens/settings_menu.kv')
+        load_kv_file('resources/kv/screens/export_import.kv')
+        load_kv_file('resources/kv/screens/profile.kv')
         load_kv_file('resources/kv/widgets/scrolling_menu.kv') 
         load_kv_file('resources/kv/widgets/rating.kv')
         load_kv_file('resources/kv/widgets/dropdown.kv')
@@ -58,7 +73,9 @@ class FillistApp(App):
         sm.add_widget(mainScreen())
         sm.add_widget(AddFilmMenuScreen())
         sm.add_widget(RedactFilmMenuScreen())
-        
+        sm.add_widget(settingsScreen())
+        sm.add_widget(exportImportScreen())
+        sm.add_widget( profileScreen())
         return sm
 
 

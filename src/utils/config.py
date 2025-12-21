@@ -102,6 +102,27 @@ def bind_keyboard_to_app(app_class):
                         if hasattr(fillist_menu, 'go_to_home'):
                             fillist_menu.go_to_home()
                             return True
+                elif current_screen and current_screen.name == "settingsScreen":
+                    if hasattr(current_screen, 'ids') and 'setting_menu' in current_screen.ids:
+                        fillist_menu = current_screen.ids.setting_menu
+                        # Проверяем, что у него есть нужный метод
+                        if hasattr(fillist_menu, 'go_to_home'):
+                            fillist_menu.go_to_home()
+                            return True
+                elif current_screen and current_screen.name == "exportImportScreen":
+                    if hasattr(current_screen, 'ids') and 'export_import_menu' in current_screen.ids:
+                        fillist_menu = current_screen.ids.export_import_menu
+                        # Проверяем, что у него есть нужный метод
+                        if hasattr(fillist_menu, 'go_to_home'):
+                            fillist_menu.go_to_home()
+                            return True
+                elif current_screen and current_screen.name == "ProfileScreen":
+                    if hasattr(current_screen, 'ids') and 'profile_menu' in current_screen.ids:
+                        fillist_menu = current_screen.ids.profile_menu
+                        # Проверяем, что у него есть нужный метод
+                        if hasattr(fillist_menu, 'go_to_home'):
+                            fillist_menu.go_to_home()
+                            return True
         return False
     # Заменяем методы
     app_class.build = new_build

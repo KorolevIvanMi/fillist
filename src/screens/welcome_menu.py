@@ -4,8 +4,7 @@ from kivy.properties import ObjectProperty
 from kivy.app import App
 from utils.helpers import * 
 class WelcomeMenu(FloatLayout):
-    main_menu_btn = ObjectProperty()
-
+    
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
@@ -16,4 +15,15 @@ class WelcomeMenu(FloatLayout):
         app = App.get_running_app()
         app.root.current = "mainScreen"
 
+    def go_to_settings_menu(self):
+        app = App.get_running_app()
+        app.root.current = "settingsScreen"
+    
+    def go_to_export_import_menu(self):
+        app = App.get_running_app()
+        app.root.current = "exportImportScreen"
+
+    def go_to_profile_menu(self):
+        app = App.get_running_app()
+        app.root.current = "ProfileScreen"
     
