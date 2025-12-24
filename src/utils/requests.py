@@ -1,7 +1,7 @@
 import sqlite3 as sq
 
 def init(con,  pre_films, statuses, pre_genres, rating):
-    cur = con.cursor
+    cur = con.cursor()
     cur.execute('''
         CREATE TABLE IF NOT EXISTS status(
         status_id INTEGER PRIMARY KEY AUTOINCREMENT,

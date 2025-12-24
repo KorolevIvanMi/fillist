@@ -3,6 +3,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.properties import ObjectProperty
 from kivy.app import App
 from utils.helpers import * 
+from utils.export_import import export
 class WelcomeMenu(FloatLayout):
     
     def __init__(self, **kwargs):
@@ -20,6 +21,7 @@ class WelcomeMenu(FloatLayout):
         app.root.current = "settingsScreen"
     
     def go_to_export_import_menu(self):
+        
         app = App.get_running_app()
         app.root.current = "exportImportScreen"
 

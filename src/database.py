@@ -32,10 +32,22 @@ def get_db_path():
         return dev_db_path
 
 class myDataBase:
+    _instance = None
+    _initialized = False
+
+
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    
+
     def __init__(self):
-        self.db_path = get_db_path()
-        self.con = sq.connect(self.db_path)
-        self.db_init()
+        if not self._initialized:
+            self.db_path = get_db_path()
+            self.con = sq.connect(self.db_path)
+            self.db_init()
+            self._initialized = True
         
     def db_init(self):
         # Убедимся, что можем создать файл БД
