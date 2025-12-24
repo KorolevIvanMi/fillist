@@ -1,0 +1,101 @@
+[
+    {
+        "name": "Хелсинг",
+        "genre": "аниме, ужасы",
+        "status": "Просмотрен",
+        "rating": 5,
+        "description": "Супер аниме!Всем рекомендую",
+        "film_id": 18,
+        "active": false
+    },
+    {
+        "name": "Магическая битва",
+        "genre": "тёмное фэнтези, аниме",
+        "status": "Просмотрен",
+        "rating": 5,
+        "description": "Жестокое аниме, часто подвергающее героев психологическому и физическому насилию, что сильно расскрывает их",
+        "film_id": 21,
+        "active": false
+    },
+    {
+        "name": "УРААА",
+        "genre": "получилось",
+        "status": "В процессе",
+        "rating": 5,
+        "description": "",
+        "film_id": 75,
+        "active": false
+    },
+    {
+        "name": "Ван-Пис",
+        "genre": "аниме",
+        "status": "Просмотрен",
+        "rating": 5,
+        "description": "Ван пис существует",
+        "film_id": 80,
+        "active": false
+    },
+    {
+        "name": "gg",
+        "genre": "g",
+        "status": "Просмотрен",
+        "rating": 5,
+        "description": "gggg",
+        "film_id": 82,
+        "active": false
+    },
+    {
+        "name": "gg",
+        "genre": "g",
+        "status": "Просмотрен",
+        "rating": 4,
+        "description": "",
+        "film_id": 72,
+        "active": false
+    },
+    {
+        "name": "Охота",
+        "genre": "драма",
+        "status": "Просмотрен",
+        "rating": 4,
+        "description": "",
+        "film_id": 78,
+        "active": false
+    },
+    {
+        "name": "gg",
+        "genre": "g",
+        "status": "Просмотрен",
+        "rating": 3,
+        "description": "",
+        "film_id": 73,
+        "active": false
+    },
+    {
+        "name": "gg",
+        "genre": "g",
+        "status": "Просмотрен",
+        "rating": 2,
+        "description": "",
+        "film_id": 74,
+        "active": false
+    },
+    {
+        "name": "gggggg",
+        "genre": "g",
+        "status": "В процессе",
+        "rating": 2,
+        "description": "",
+        "film_id": 83,
+        "active": false
+    },
+    {
+        "name": "gg",
+        "genre": "g",
+        "status": "В планах",
+        "rating": 0,
+        "description": ";;;;",
+        "film_id": 81,
+        "active": false
+    }
+]

@@ -21,7 +21,6 @@ class WelcomeMenu(FloatLayout):
         app.root.current = "settingsScreen"
     
     def go_to_export_import_menu(self):
-        
         app = App.get_running_app()
         app.root.current = "exportImportScreen"
 

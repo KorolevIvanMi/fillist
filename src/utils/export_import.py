@@ -13,4 +13,5 @@ def export(export_dir = ""):
     json_string = json.dumps(all_data,  ensure_ascii = False , indent=4)
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(json_string)
+        print("ura")
         
