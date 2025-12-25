@@ -1,6 +1,8 @@
 <ExportImportMenu>:
     container_dyn:container_dyn
-    
+    file_path_txt:file_path_txt
+    file_name_txt:file_name_txt
+
     canvas: 
         Color: 
             rgba: 1,1,1,1
@@ -18,6 +20,16 @@
         Rectangle:
             pos: root.width/6, root.height - root.height/8
             size: root.width * 4 /6,  root.height / 8
+        Color:
+            rgb: 230/255, 230/255, 230/255
+        RoundedRectangle: 
+            pos: root.width/10*3.3, root.height/10 *5.8
+            size: root.width/10*3.35, 50
+            radius: [dp(15),]
+        RoundedRectangle: 
+            pos: root.width/10*3.3, root.height/10 *4.3
+            size: root.width/10*3.35, 50
+            radius: [dp(15),]
     Label:
         font_size: '100sp'
         pos_hint: {'x': 1/5.2, 'y': 8.8/10}
@@ -52,7 +64,7 @@
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [dp(50),]
+                        radius: [dp(40),]
                 size_hint: (0.5, 0.3)
                 pos_hint: {'center_x': 0.5}
                 background_normal: ''
@@ -64,7 +76,7 @@
                     self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
                 on_release:
                     self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
-                    root.spawn_export_widgets()
+                    root.export_data()
             Widget:
                 size_hint: 0.05, 1
             Button:
@@ -75,7 +87,7 @@
                     RoundedRectangle:
                         pos: self.pos
                         size: self.size
-                        radius: [dp(50),]
+                        radius: [dp(40),]
                 size_hint: (0.5, 0.3)
                 pos_hint: {'center_x': 0.5}
                 background_normal: ''
@@ -87,19 +99,46 @@
                     self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
                 on_release:
                     self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+                    root.import_data()
     BoxLayout:
         id: container_dyn
         pos_hint: {'x': 1.665/10, 'y': 4/10}
         size_hint: 6.67/10, 3/10
         orientation: 'vertical'
         
-        canvas.before:
-            Color:
-                rgba: 1, 0, 0, 1
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        
+        Label:
+            text: "Путь для экспорта"
+            font_name: "Guidy"
+            font_size: '40sp'
+            color: 0,0,0
+            size_hint: (1, 0.18)
+        TextInput:
+            id: file_path_txt
+            background_color: 0,0,0,0
+            hint_text: "C:/user/Fillist"
+            font_name: "Guidy"
+            font_size: '40sp'
+            color: 0,0,0
+            size_hint: (0.5, 0.18)
+            pos_hint: {'x': 2.5/10, 'y': 1}
+            multiline: False
+        Label:
+            text: "Название файла"
+            font_name: "Guidy"
+            font_size: '40sp'
+            color: 0,0,0
+            size_hint: (1, 0.18)
+        TextInput:
+            id: file_name_txt
+            background_color: 0,0,0,0
+            hint_text: "all_films"
+            font_name: "Guidy"
+            font_size: '40sp'
+            color: 0,0,0
+            size_hint: (0.5, 0.18)
+            pos_hint: {'x': 2.5/10, 'y': 1}
+            multiline: False
+
 <exportImportScreen>:
     name: "exportImportScreen"
     ExportImportMenu:

@@ -100,6 +100,7 @@ def get_all_films(con):
 def delete_film(con, film_id):
     cur = con.cursor()
     cur.execute('''DELETE FROM filmlist where film_id = ?''', (film_id,))
+    con.commit()
 
 def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = ""):
     film_genre = film_genre.strip().lower() if film_genre!="" else ""
@@ -126,9 +127,11 @@ def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = 
     results = cur.fetchall()
     return results
 
-def add_genre(cur, genre_name):
+def add_genre(con, genre_name):
+    cur = con.cursor()
     cur.execute('''INSERT INTO genre(name) VALUES (?)''', (genre_name,))
     genre_id = cur.lastrowid
+    con.commit()
     return genre_id
 
 def already_in_db(con,   film_name, film_genre, film_status, film_rating):
