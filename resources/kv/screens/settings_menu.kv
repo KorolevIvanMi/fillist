@@ -33,7 +33,38 @@
         normal_source: root.normal_home_res
         down_source: root.down_home_res
         on_release: root.go_to_home()
-
+    BoxLayout:
+        pos_hint: {'x': 1.95/10, 'y': 0.4}
+        size_hint: 6/10, 5/10
+        orientation: 'vertical'
+        Label:
+            halign: 'left'
+            text_size: self.width, self.height
+            color: 0,0,0,1
+            text: "Esc - закрыть программу"
+            font_size: 50
+            font_name: 'Guidy'
+        Label:
+            halign: 'left'
+            text_size: self.width, self.height
+            color: 0,0,0,1
+            text: "Ctrl+b - вернуться на предыдущее окно"
+            font_size: 50
+            font_name: 'Guidy'
+        Label:
+            halign: 'left'
+            text_size: self.width, self.height
+            color: 0,0,0,1
+            text: "Ctrl+n - создать новый фильм"
+            font_size: 50
+            font_name: 'Guidy'
+        Label:
+            halign: 'left'
+            text_size: self.width, self.height
+            color: 0,0,0,1
+            text: "Ctrl+s - сохранить новый фильм или сохранить изменения"
+            font_size: 50
+            font_name: 'Guidy'
     
 
 <settingsScreen>:
