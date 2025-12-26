@@ -30,7 +30,7 @@ def init(con,  pre_films, statuses, pre_genres, rating):
         description TEXT NOT NULL)
         ''')
                 
-                # Проверяем, есть ли уже данные в таблицах
+    # Проверяем, есть ли уже данные в таблицах
     cur.execute('SELECT COUNT(*) FROM status')
     if cur.fetchone()[0] == 0:
         for status in statuses:
