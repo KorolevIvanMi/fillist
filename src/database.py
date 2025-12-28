@@ -102,7 +102,6 @@ class myDataBase:
         pre_person = [
             ("admin", "12345", 0, None)
         ]
-        
         try:
             rq.init(self.con, pre_films, statuses, pre_genres, ratings)
 
