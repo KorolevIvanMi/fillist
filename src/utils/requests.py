@@ -1,4 +1,5 @@
 import sqlite3 as sq
+from utils.user_service import is_log_in
 
 def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
     cur = con.cursor()
@@ -27,7 +28,8 @@ def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
         genre INTEGER NOT NULL,
         status INTEGER NOT NULL,
         rating INTEGER NOT NULL,
-        description TEXT NOT NULL)
+        description TEXT NOT NULL, 
+        owner_id INTEGER NOT NULL)
         ''')
     
     cur.execute('''CREATE TABLE IF NOT EXISTS users(
@@ -60,8 +62,8 @@ def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
     cur.execute('SELECT COUNT(*) FROM filmlist')
     if cur.fetchone()[0] == 0:
         for film in pre_films:
-            cur.execute('''INSERT INTO filmlist (name, genre, status, rating, description) 
-                VALUES(?, ?, ?, ?, ?)''', film)
+            cur.execute('''INSERT INTO filmlist (name, genre, status, rating, description, owner_id) 
+                VALUES(?, ?, ?, ?, ?, ?)''', film)
         con.commit()
 
     cur.execute('SELECT COUNT(*) FROM users ')
@@ -103,35 +105,40 @@ def get_films_dict(req_res, genre = None):
             if genre in film_dict['genre']: films.append(film_dict)  
     return films
 
-def get_film_by_name(film_name, con):
+
+@is_log_in
+def get_film_by_name(film_name, con, current_user = None):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute(f'''
         SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
         JOIN genre ON filmlist.genre  = genre.genre_id
         JOIN status ON filmlist.status = status.status_id
-        WHERE filmlist.name LIKE ? 
-        ''', (film_name, ))
+        WHERE filmlist.name LIKE ? AND filmlist.owner_id = ?
+        ''', (film_name, current_user))
     results = cur.fetchall()
     return results
 
-def get_all_films(con):
+@is_log_in
+def get_all_films(con, current_user = None):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute('''
         SELECT filmlist.name,   genre.name as genre_name,  status.name as status_name, rating, filmlist.description, filmlist.film_id FROM filmlist
         JOIN genre ON filmlist.genre  = genre.genre_id
         JOIN status ON filmlist.status = status.status_id
-        ORDER BY rating DESC''')
+        WHERE  filmlist.owner_id = ?
+        ORDER BY rating DESC''', (current_user,))
     results = cur.fetchall()
     return results
-
-def delete_film(con, film_id):
+@is_log_in
+def delete_film(con, film_id, current_user = None):
     cur = con.cursor()
-    cur.execute('''DELETE FROM filmlist where film_id = ?''', (film_id,))
+    cur.execute('''DELETE FROM filmlist where film_id = ? AND filmlist.owner_id = ?''', (film_id,current_user))
     con.commit()
 
-def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = ""):
+@is_log_in
+def get_film_with_filters(con , film_status = "", film_rating = "", film_genre = "", current_user = None):
     film_genre = film_genre.strip().lower() if film_genre!="" else ""
     con.row_factory = sq.Row 
     cur = con.cursor()
@@ -142,17 +149,17 @@ def get_film_with_filters(con, film_status = "", film_rating = "", film_genre = 
         '''
     
     if(film_rating != '' and film_status != "Все"):
-        base_req += '''WHERE status.name = ? AND rating = ?'''
-        cur.execute(base_req, (film_rating, film_status))
+        base_req += '''WHERE status.name = ? AND rating = ? AND filmlist.owner_id = ?'''
+        cur.execute(base_req, ( film_status,film_rating, current_user))
     elif (film_rating != '' and film_status == "Все"):
-        base_req += '''WHERE rating = ?'''
-        cur.execute(base_req, (film_rating))
+        base_req += '''WHERE rating = ? AND filmlist.owner_id = ?'''
+        cur.execute(base_req, (film_rating, current_user))
     elif(film_rating == '' and film_status == "Все"):
-        base_req += '''ORDER BY rating DESC'''
-        cur.execute(base_req)
+        base_req += ''' AND filmlist.owner_id = ? ORDER BY rating DESC'''
+        cur.execute(base_req, (current_user,))
     elif film_rating == '' and film_status != "Все":
-        base_req += '''WHERE status.name = ? ORDER BY rating DESC'''
-        cur.execute(base_req, (film_status,))
+        base_req += '''WHERE status.name = ? AND filmlist.owner_id = ? ORDER BY rating DESC'''
+        cur.execute(base_req, (film_status,current_user))
     results = cur.fetchall()
     return results
 
@@ -195,7 +202,7 @@ def get_genre_id(con, genre_name):
         'genre_id': row['genre_id']
         }
         films.append(film_dict)
-    if not films: genre_id = add_genre(cur, genre_name)
+    if not films: genre_id = add_genre(con, genre_name)
     else: genre_id = films[0]['genre_id']
 
     return genre_id
@@ -218,7 +225,8 @@ def get_status_id (con, status_name):
 
     return status_id
 
-def get_film_by_id(con, film_id):
+@is_log_in
+def get_film_by_id(con, film_id,  current_user = None):
     con.row_factory = sq.Row 
     cur = con.cursor()
     film_id_int = int(film_id)
@@ -228,12 +236,13 @@ def get_film_by_id(con, film_id):
         FROM filmlist
         JOIN genre ON filmlist.genre = genre.genre_id
         JOIN status ON filmlist.status = status.status_id
-        WHERE filmlist.film_id = ?
-    ''', (film_id_int,))
+        WHERE filmlist.film_id = ? AND filmlist.owner_id = ?
+    ''', (film_id_int, current_user))
     result = cur.fetchall()
-    return result
+    return result\
 
-def add_film_to_bd(con, film_name, film_genre, film_status, film_rating, film_discription = ""):
+@is_log_in
+def add_film_to_bd(con, film_name, film_genre, film_status, film_rating, film_discription = "", current_user = None):
     cur = con.cursor()
 
     if film_name == "" or film_name == " ": return 3
@@ -247,12 +256,13 @@ def add_film_to_bd(con, film_name, film_genre, film_status, film_rating, film_di
     rating_id = film_rating
     if film_rating == "": rating_id = "0"
 
-    cur.execute('''INSERT INTO filmlist(name, genre, status, rating, description) VALUES (?, ?, ?, ?, ?)''', 
-                            (film_name, genre_id, status_id, rating_id, film_discription))
+    cur.execute('''INSERT INTO filmlist(name, genre, status, rating, description, owner_id) VALUES (?, ?, ?, ?, ?, ?)''', 
+                            (film_name, genre_id, status_id, rating_id, film_discription, current_user))
     con.commit()
     return 1
 
-def update_film_data(con, film_id, film_name, film_genre, film_status, film_rating, film_discription):
+@is_log_in
+def update_film_data(con, film_id, film_name, film_genre, film_status, film_rating, film_discription, current_user = None):
     cur = con.cursor()
     if film_name == "" or film_name == " ": return 3
     if film_genre == "" or film_genre == " ": return 4
@@ -265,7 +275,7 @@ def update_film_data(con, film_id, film_name, film_genre, film_status, film_rati
 
     cur.execute('''UPDATE filmlist 
         set genre = ?, status = ? , rating = ?,  description= ?
-        WHERE film_id = ?''', (genre_id, status_id, rating_id, film_discription,film_id))
+        WHERE film_id = ? AND filmlist.owner_id = ?''', (genre_id, status_id, rating_id, film_discription,film_id, current_user ))
     
     con.commit()
     return 1

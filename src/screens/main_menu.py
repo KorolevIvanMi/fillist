@@ -5,6 +5,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.app import App
 from utils.helpers import get_resource_path 
+from utils.user_service import is_log_in
 
 class CustomButtonToGoToOtherScreen(ButtonBehavior, Image):
     def __init__(self, **kwargs):
@@ -31,6 +32,7 @@ class FillistMainMenu(FloatLayout):
         super().__init__(**kwargs)
         self.normal_home_res = get_resource_path('resources/images/buttons/Home_btn.png')
         self.down_home_res = get_resource_path('resources/images/buttons/Home_btn_down.png')
+    
     def go_to_addScreen(self):
         app = App.get_running_app()
         app.root.current = "AddFilmMenuScreen"
