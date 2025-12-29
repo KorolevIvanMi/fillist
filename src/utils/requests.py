@@ -1,6 +1,6 @@
 import sqlite3 as sq
 
-def init(con,  pre_films, statuses, pre_genres, rating):
+def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
     cur = con.cursor()
     cur.execute('''
         CREATE TABLE IF NOT EXISTS status(
@@ -29,31 +29,60 @@ def init(con,  pre_films, statuses, pre_genres, rating):
         rating INTEGER NOT NULL,
         description TEXT NOT NULL)
         ''')
-                
+    
+    cur.execute('''CREATE TABLE IF NOT EXISTS users(
+                user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                login TEXT NOT NULL,
+                password  TEXT NOT NULL,
+                is_active INTEGER NOT NULL DEFAULT 0,
+                avatar BLOB) ''')
+    
+    con.commit()
     # Проверяем, есть ли уже данные в таблицах
     cur.execute('SELECT COUNT(*) FROM status')
     if cur.fetchone()[0] == 0:
         for status in statuses:
             cur.execute('INSERT INTO status (name) VALUES(?)', status)
-                
+        con.commit()
+
     cur.execute('SELECT COUNT(*) FROM rating')
     if cur.fetchone()[0] == 0:
-        for rating in rating:
+        for rating in rating_v:
             cur.execute('INSERT INTO rating (value) VALUES(?)', rating)
-                
+        con.commit()
+
     cur.execute('SELECT COUNT(*) FROM genre')
     if cur.fetchone()[0] == 0:
         for genre in pre_genres:
             cur.execute('INSERT INTO genre (name) VALUES(?)', genre)
-                
+        con.commit()
+
     cur.execute('SELECT COUNT(*) FROM filmlist')
     if cur.fetchone()[0] == 0:
         for film in pre_films:
             cur.execute('''INSERT INTO filmlist (name, genre, status, rating, description) 
                 VALUES(?, ?, ?, ?, ?)''', film)
-                
+        con.commit()
+
+    cur.execute('SELECT COUNT(*) FROM users ')
+    if cur.fetchone()[0] == 0:
+        for user in pre_user:
+            cur.execute('''INSERT INTO users (login,password, is_active, avatar) 
+                VALUES(?, ?, ?, ?)''', user)
+        con.commit()
+    cur.close()
     print("Database initialized successfully!")
 
+def get_active_user(con):
+    con.row_factory = sq.Row
+    cur = con.cursor()
+
+    cur.execute(''' 
+        SELECT * FROM users WHERE users.is_active = 1
+        ''')
+    results = cur.fetchall()
+
+    return results
 
 def get_films_dict(req_res, genre = None):
     

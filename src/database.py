@@ -99,11 +99,11 @@ class myDataBase:
             (5,)
         ]
 
-        pre_person = [
-            ("admin", "12345", 0, None)
+        pre_user = [
+            ("admin", 12345, 0, None)
         ]
         try:
-            rq.init(self.con, pre_films, statuses, pre_genres, ratings)
+            rq.init(self.con, pre_films, statuses, pre_genres, ratings, pre_user)
 
         except Exception as e:
             print(f"Error initializing database: {e}")

@@ -4,6 +4,9 @@ from kivy.properties import ObjectProperty
 from kivy.app import App
 from utils.helpers import * 
 from utils.export_import import export
+from utils.user_service import is_log_in
+
+
 class WelcomeMenu(FloatLayout):
     
     def __init__(self, **kwargs):
@@ -11,15 +14,16 @@ class WelcomeMenu(FloatLayout):
 
         self.normal_prof_res = get_resource_path('resources/images/buttons/Profile_btn.png')
         self.down_prof_res = get_resource_path('resources/images/buttons/Profile_btn_down.png')
-
+        
+    @is_log_in
     def go_to_main_menu(self):
         app = App.get_running_app()
         app.root.current = "mainScreen"
-
+    @is_log_in
     def go_to_settings_menu(self):
         app = App.get_running_app()
         app.root.current = "settingsScreen"
-    
+    @is_log_in
     def go_to_export_import_menu(self):
         app = App.get_running_app()
         app.root.current = "exportImportScreen"
