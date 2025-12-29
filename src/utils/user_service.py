@@ -13,7 +13,9 @@ def is_log_in(func):
         
         if act_user == []:
             print("нет авторизованных пользователей!")
-            return None
+            if hasattr(args[0], "spawn_warning"):
+                args[0].spawn_warning()
+            return []
         
         sig = inspect.signature(func)
         params = sig.parameters

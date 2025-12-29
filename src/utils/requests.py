@@ -108,6 +108,7 @@ def get_films_dict(req_res, genre = None):
 
 @is_log_in
 def get_film_by_name(film_name, con, current_user = None):
+    
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute(f'''
