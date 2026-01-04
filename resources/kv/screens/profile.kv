@@ -1,5 +1,6 @@
 <ProfileMenu>:
-    
+    login_txt:login_txt
+    password_txt:password_txt
     
     canvas: 
         Color: 
@@ -18,6 +19,18 @@
         Rectangle:
             pos: root.width/6, root.height - root.height/8
             size: root.width * 4 /6,  root.height / 8
+        Color:
+            rgba: 230/255, 230/255, 230/255, 1
+        RoundedRectangle:
+            pos: root.width / 10 * 3.95, root.height/10*7.8
+            size: root.width/10 * 3.1, root.height/10*0.5
+            radius: [30, ]
+        RoundedRectangle:
+            pos: root.width / 10 * 3.95, root.height/10*7
+            size: root.width/10 * 3.1, root.height/10*0.5
+            radius: [30, ]  
+
+
     Label:
         font_size: '100sp'
         pos_hint: {'x': 1/5.2, 'y': 8.8/10}
@@ -33,8 +46,70 @@
         normal_source: root.normal_home_res
         down_source: root.down_home_res
         on_release: root.go_to_home()
-
     
+    Button:
+        background_color: 0, 0, 0, 0  # Прозрачный фон
+        canvas.before:
+            Color:
+                rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(30),]
+        size_hint: (0.1, 0.05)
+        pos_hint: {'x': 0.4,  'y': 0.62}
+        background_normal: ''
+        color: 1, 1, 1, 1
+        font_name: "Guidy"
+        font_size: '40sp'
+        text: "Войти"
+        on_press:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+        on_release:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+
+    Button:
+        background_color: 0, 0, 0, 0  # Прозрачный фон
+        canvas.before:
+            Color:
+                rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(30),]
+        size_hint: (0.25, 0.05)
+        pos_hint: {'x': 0.4,  'y': 0.54}
+        background_normal: ''
+        color: 1, 1, 1, 1
+        font_name: "Guidy"
+        font_size: '40sp'
+        text: "Зарегестрироваться"
+        on_press:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+        on_release:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+
+    TextInput:
+        id: login_txt
+        hint_text: 'login'
+        size_hint: (0.3, 0.05)
+        font_name: "Guidy"
+        font_size: '40sp'
+        pos_hint: {'x': 0.4,  'y': 0.78}
+        multiline: False
+        background_color: 1, 1, 1, 0
+        foreground_color: 0, 0, 0, 1
+
+    TextInput:
+        id: password_txt
+        hint_text: 'password'
+        size_hint: (0.3, 0.05)
+        font_name: "Guidy"
+        font_size: '40sp'
+        pos_hint: {'x': 0.4,  'y': 0.7}
+        multiline: False
+        background_color: 1, 1, 1, 0
+        foreground_color: 0, 0, 0, 1
 
 <profileScreen>:
     name: "ProfileScreen"

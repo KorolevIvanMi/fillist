@@ -1,9 +1,13 @@
 from kivy.uix.floatlayout import FloatLayout
 from kivy.app import App
 from utils.helpers import get_resource_path
-
-
+from database import myDataBase
+from kivy.properties import ObjectProperty
 class ProfileMenu(FloatLayout):
+
+    db = myDataBase()
+    login_txt = ObjectProperty(None)
+    password_txt = ObjectProperty(None)
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.normal_home_res = get_resource_path('resources/images/buttons/Home_btn.png')
@@ -12,3 +16,6 @@ class ProfileMenu(FloatLayout):
     def go_to_home(self):
         app = App.get_running_app()
         app.root.current = "welcomeScreen"
+
+    def on_enter_btn(self):
+        pass

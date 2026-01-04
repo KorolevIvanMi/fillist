@@ -98,18 +98,13 @@ class myDataBase:
             (4,),
             (5,)
         ]
-<<<<<<< HEAD
+
 
         pre_user = [
             ("admin", 12345, 0, None)
         ]
-=======
-        
-        pre_person = [
-            ("admin", "123450", 0, None)
-        ]
 
->>>>>>> 0d57d91 (c)
+
         try:
             rq.init(self.con, pre_films, statuses, pre_genres, ratings, pre_user)
 

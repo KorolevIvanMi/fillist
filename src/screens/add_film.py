@@ -6,13 +6,12 @@ from utils.helpers import *
 from widgets.dropdown import StatusDropdownAdd
 from kivy.uix.widget import Widget
 from widgets.warning import WarningForAdd
-from kivy.properties import ObjectProperty
+from kivy.properties import ObjectProperty, ListProperty
 from kivy.app import App
 
 from kivy.clock import Clock
 from database import myDataBase
 from kivy.uix.button import Button
-from kivy.properties import ListProperty
 from kivy.uix.dropdown import DropDown
 from kivy.uix.floatlayout import FloatLayout
 

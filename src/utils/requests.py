@@ -240,7 +240,7 @@ def get_film_by_id(con, film_id,  current_user = None):
         WHERE filmlist.film_id = ? AND filmlist.owner_id = ?
     ''', (film_id_int, current_user))
     result = cur.fetchall()
-    return result\
+    return result
 
 @is_log_in
 def add_film_to_bd(con, film_name, film_genre, film_status, film_rating, film_discription = "", current_user = None):
@@ -280,5 +280,22 @@ def update_film_data(con, film_id, film_name, film_genre, film_status, film_rati
     
     con.commit()
     return 1
+
+def find_user(con, user_login, user_password):
+    con.row_factory = sq.Row 
+    cur = con.cursor()
+    cur.execute('''SELECT user_id from users WHERE login = ? AND password = ?''', (user_login, user_password))
+    result = cur.fetchall()
+    return result['id']
+
+def set_user_active(con, user_id):
+    cur = con.cursor()
+    cur.execute('''UPDATE users SET is_active = 1 WHERE user_id = ?''', (user_id, ))
+
+def set_user_unactive(con, user_id):
+    cur = con.cursor()
+    cur.execute('''UPDATE users SET is_active = 1 WHERE user_id = ?''', (user_id, ))
+
+
 
 

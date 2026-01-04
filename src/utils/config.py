@@ -35,7 +35,7 @@ def bind_keyboard_to_app(app_class):
                 Window.fullscreen = 'auto'
             return True
         
-        if key == 110 and 'ctrl' in modifier:
+        if (key == 110  or key == 1090)and 'ctrl' in modifier:
             app = App.get_running_app()
             if app and hasattr(app, 'root'):
                 current_screen = app.root.current_screen
@@ -49,7 +49,7 @@ def bind_keyboard_to_app(app_class):
                             return True
         
     
-        if key == 115 and  'ctrl' in modifier:
+        if (key == 115 or key == 1099) and  'ctrl' in modifier:
             app = App.get_running_app()
             if app and hasattr(app, 'root'):
                 current_screen = app.root.current_screen
@@ -71,7 +71,7 @@ def bind_keyboard_to_app(app_class):
                         if hasattr(fillist_menu, 'save_changes'):
                             fillist_menu.save_changes()
                             return True
-        if key == 98 and  'ctrl' in modifier:
+        if (key == 98 or key == 1080) and  'ctrl' in modifier:
             app = App.get_running_app()
             if app and hasattr(app, 'root'):
                 current_screen = app.root.current_screen
@@ -130,5 +130,3 @@ def bind_keyboard_to_app(app_class):
     
     return app_class
 
-
-    
