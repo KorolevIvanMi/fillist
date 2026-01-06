@@ -280,22 +280,43 @@ def update_film_data(con, film_id, film_name, film_genre, film_status, film_rati
     
     con.commit()
     return 1
+def set_all_unactive(con):
+    cur = con.cursor()
+    cur.execute('''UPDATE users set is_active = 0''')
+    con.commit()
 
 def find_user(con, user_login, user_password):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute('''SELECT user_id from users WHERE login = ? AND password = ?''', (user_login, user_password))
-    result = cur.fetchall()
-    return result['id']
+    results = cur.fetchall()
+    users = []
+    for row in results:
+        film_dict = {
+        'user_id': row['user_id']
+        }
+        users.append(film_dict)
+    if users != []:
+        return users[0]['user_id']
+    return "-1"
 
 def set_user_active(con, user_id):
+    set_all_unactive(con)
     cur = con.cursor()
     cur.execute('''UPDATE users SET is_active = 1 WHERE user_id = ?''', (user_id, ))
+    con.commit()
 
 def set_user_unactive(con, user_id):
     cur = con.cursor()
     cur.execute('''UPDATE users SET is_active = 1 WHERE user_id = ?''', (user_id, ))
+    con.commit()
 
+def add_user(con, user_login, user_password):
+    set_all_unactive(con)
+    cur = con.cursor()
+    cur.execute('''INSERT INTO users (login, password, is_active, avatar) VALUES (?,?,1,NULL)''', (user_login, user_password))
+    con.commit()
+    
 
 
 

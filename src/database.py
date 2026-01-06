@@ -2,7 +2,7 @@ import os
 import sqlite3 as sq
 import sys
 import utils.requests  as rq
-
+from kivy.app import App
 def get_db_path():
     """Универсальный путь к базе данных для Windows и Linux"""
     if hasattr(sys, '_MEIPASS'):
@@ -165,3 +165,24 @@ class myDataBase:
         res = rq.update_film_data(self.con ,film_id, film_name, film_genre, film_status, film_rating, film_discription)
 
         return res
+    
+    def log_in(self, user_password, user_login):
+        user_id = rq.find_user(self.con, user_login=user_login, user_password=user_password)
+        if user_id != "-1":
+            rq.set_user_active(self.con, user_id)
+            app = App.get_running_app()
+
+            app.data_updated = True
+            print(f"Успешно авторизован {user_id}")
+            return 1
+        else:
+            print("Такого пользователя нет!")
+            return 0
+        
+    def log_out(self):
+        rq.set_all_unactive(self.con)
+
+    def register(self, user_login, user_password):
+        rq.add_user(self.con, user_login, user_password)
+        app = App.get_running_app()
+        app.data_updated = True

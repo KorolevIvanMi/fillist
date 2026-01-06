@@ -67,6 +67,7 @@
             self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
         on_release:
             self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+            root.on_enter_btn()
 
     Button:
         background_color: 0, 0, 0, 0  # Прозрачный фон
@@ -88,6 +89,28 @@
             self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
         on_release:
             self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+            root.on_register_release()
+    Button:
+        background_color: 0, 0, 0, 0  # Прозрачный фон
+        canvas.before:
+            Color:
+                rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(30),]
+        size_hint: (0.1, 0.05)
+        pos_hint: {'x': 0.4,  'y': 0.46}
+        background_normal: ''
+        color: 1, 1, 1, 1
+        font_name: "Guidy"
+        font_size: '40sp'
+        text: "Выйти"
+        on_press:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+        on_release:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+            root.on_exit_release()
 
     TextInput:
         id: login_txt
