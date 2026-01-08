@@ -29,6 +29,10 @@
             pos: root.width / 10 * 3.95, root.height/10*7
             size: root.width/10 * 3.1, root.height/10*0.5
             radius: [30, ]  
+        RoundedRectangle:
+            pos: root.width / 10 * 3.95, root.height/10*3.8
+            size: root.width/10 * 3.1, root.height/10*0.5
+            radius: [30, ]  
 
 
     Label:
@@ -133,6 +137,37 @@
         multiline: False
         background_color: 1, 1, 1, 0
         foreground_color: 0, 0, 0, 1
+    TextInput:
+        hint_text: 'way to image'
+        size_hint: (0.3, 0.05)
+        font_name: "Guidy"
+        font_size: '40sp'
+        pos_hint: {'x': 0.4,  'y': 0.38}
+        multiline: False
+        background_color: 1, 1, 1, 0
+        foreground_color: 0, 0, 0, 1
+    Button:
+        background_color: 0, 0, 0, 0  # Прозрачный фон
+        canvas.before:
+            Color:
+                rgba: 136/255,136/255,136/255, 1  # Цвет кнопки
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [dp(30),]
+        size_hint: (0.15, 0.05)
+        pos_hint: {'x': 0.4,  'y': 0.3}
+        background_normal: ''
+        color: 1, 1, 1, 1
+        font_name: "Guidy"
+        font_size: '40sp'
+        text: "Применить"
+        on_press:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
+        on_release:
+            self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
+            
+
 
 <profileScreen>:
     name: "ProfileScreen"
