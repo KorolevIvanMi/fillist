@@ -1,5 +1,6 @@
 import sqlite3 as sq
 from utils.user_service import is_log_in
+from utils.helpers import convert_to_BLOB
 
 def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
     cur = con.cursor()
@@ -316,7 +317,21 @@ def add_user(con, user_login, user_password):
     cur = con.cursor()
     cur.execute('''INSERT INTO users (login, password, is_active, avatar) VALUES (?,?,1,NULL)''', (user_login, user_password))
     con.commit()
-    
 
+@is_log_in  
+def get_image(con, current_user = None):
+    cur = con.cursor()
+    cur.execute("SELECT avatar from users where user_id = ?", (current_user,))
+    image_data = cur.fetchone()[0]
+    return image_data
+
+
+@is_log_in 
+def set_avatar(con,image_path,current_user = None ):
+    cur = con.cursor()
+    image_data = convert_to_BLOB(image_path)
+    cur.execute('''UPDATE  users  SET avatar = ?  WHERE user_id = ?''', (image_data, current_user))
+
+    con.commit()
 
 

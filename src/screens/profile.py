@@ -1,16 +1,20 @@
+from kivy.uix.settings import text_type
 from kivy.uix.floatlayout import FloatLayout
 from kivy.app import App
 from utils.helpers import get_resource_path
 from database import myDataBase
 from kivy.properties import ObjectProperty
 from widgets.warning import WarningForAdd
-
+from widgets.profile_image import ProfileImage
 
 class ProfileMenu(FloatLayout):
 
     db = myDataBase()
     login_txt = ObjectProperty(None)
     password_txt = ObjectProperty(None)
+    pers_image = ObjectProperty(None)
+    pers_img_txt = ObjectProperty(None)
+
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.normal_home_res = get_resource_path('resources/images/buttons/Home_btn.png')
@@ -24,9 +28,12 @@ class ProfileMenu(FloatLayout):
         password = self.password_txt.text
         login = self.login_txt.text
         res = self.db.log_in(password, login)
-        print(res)
+        
         if res == 0:
             self.spawn_warning("Такого пользователя нет")
+        else:
+            self.pers_image.update_image(res)
+
 
 
     def spawn_warning(self, warning_text):
@@ -52,3 +59,8 @@ class ProfileMenu(FloatLayout):
         password = self.password_txt.text
         login = self.login_txt.text   
         self.db.register(login, password)
+
+    def add_avatar(self):
+        image_path = self.pers_img_txt.text
+        self.db.set_avatar(image_path)
+        

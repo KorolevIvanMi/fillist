@@ -67,6 +67,7 @@ class FillistApp(App):
         load_kv_file('resources/kv/widgets/dropdown.kv')
         load_kv_file('resources/kv/widgets/layout.kv')
         load_kv_file('resources/kv/widgets/warning.kv')
+        load_kv_file('resources/kv/widgets/profile_image.kv')
 
         sm = ScreenManager()
         sm.add_widget(welcomeScreen())

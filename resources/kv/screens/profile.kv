@@ -1,7 +1,8 @@
 <ProfileMenu>:
     login_txt:login_txt
     password_txt:password_txt
-    
+    pers_image:pers_image
+    pers_img_txt:pers_img_txt
     canvas: 
         Color: 
             rgba: 1,1,1,1
@@ -138,6 +139,7 @@
         background_color: 1, 1, 1, 0
         foreground_color: 0, 0, 0, 1
     TextInput:
+        id:pers_img_txt
         hint_text: 'way to image'
         size_hint: (0.3, 0.05)
         font_name: "Guidy"
@@ -166,9 +168,11 @@
             self.canvas.before.children[0].rgba = (136/255, 136/255, 212/255, 1)
         on_release:
             self.canvas.before.children[0].rgba = (136/255, 136/255, 136/255, 1)
-            
-
-
+            root.add_avatar()
+    ProfileImage:
+        id:pers_image
+        pos_hint: {'x': 0.17,  'y': 0.45}
+        size_hint: (0.23, 0.4)
 <profileScreen>:
     name: "ProfileScreen"
     ProfileMenu:

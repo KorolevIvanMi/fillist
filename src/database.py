@@ -174,7 +174,9 @@ class myDataBase:
 
             app.data_updated = True
             print(f"Успешно авторизован {user_id}")
-            return 1
+            users_image = rq.get_image(self.con)
+
+            return users_image
         else:
             print("Такого пользователя нет!")
             return 0
@@ -186,3 +188,6 @@ class myDataBase:
         rq.add_user(self.con, user_login, user_password)
         app = App.get_running_app()
         app.data_updated = True
+
+    def set_avatar(self, image_path):
+        rq.set_avatar(self.con, image_path)

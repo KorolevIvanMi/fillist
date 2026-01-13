@@ -32,3 +32,13 @@ def load_kv_file(kv_filename):
     
     Builder.load_file(kv_path)
     print(f"KV file loaded: {kv_path}")
+
+def convert_to_BLOB(image_path):
+    image_full_path = get_resource_path(image_path)
+
+    with open(image_full_path, 'rb') as f:
+        image_data = f.read()
+    return image_data
+
+
+    
