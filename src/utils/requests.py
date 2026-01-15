@@ -172,13 +172,13 @@ def add_genre(con, genre_name):
     con.commit()
     return genre_id
 
-def already_in_db(con,   film_name, film_genre, film_status, film_rating):
+def already_in_db(con,   film_name, film_genre, film_status, film_rating, owner_id):
     con.row_factory = sq.Row 
     cur = con.cursor()
     cur.execute('''
         SELECT filmlist.name, filmlist.genre as genre_id, 
         genre.name as genre_name, status.name as status_name, 
-        rating, filmlist.description, filmlist.film_id 
+        rating, filmlist.description, filmlist.film_id, filmlist.owner_id
         FROM filmlist
         JOIN genre ON filmlist.genre = genre.genre_id
         JOIN status ON filmlist.status = status.status_id
@@ -186,7 +186,9 @@ def already_in_db(con,   film_name, film_genre, film_status, film_rating):
         AND LOWER(genre.name) = LOWER(?)
         AND LOWER(status.name) = LOWER(?)
         AND rating = ?
-    ''', (film_name, film_genre, film_status, film_rating))
+		AND filmlist.owner_id = ?
+        
+    ''', (film_name, film_genre, film_status, film_rating, owner_id))
             
     results = cur.fetchall()
 
@@ -248,7 +250,7 @@ def add_film_to_bd(con, film_name, film_genre, film_status, film_rating, film_di
     cur = con.cursor()
 
     if film_name == "" or film_name == " ": return 3
-    if(already_in_db(con,   film_name, film_genre, film_status, film_rating) == 1): return 0
+    if(already_in_db(con,   film_name, film_genre, film_status, film_rating, current_user) == 1): return 0
     if film_genre == "" or film_genre == " ": return 4
 
     genre_id = get_genre_id(con, film_genre)

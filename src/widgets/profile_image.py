@@ -2,7 +2,7 @@ from kivy.uix.image import Image
 from kivy.core.image import Image as CoreImage
 from io import BytesIO
 from utils.helpers import get_resource_path
-import utils.requests as rq
+
 
 class ProfileImage(Image):
     def __init__(self, **kwargs):

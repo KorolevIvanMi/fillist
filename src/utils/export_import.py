@@ -2,6 +2,7 @@ from database import myDataBase
 import json
 import os
 from kivy.app import App
+from utils.user_service import is_log_in
 
 def export(export_dir = "", file_name = "all_data"):
     file_name = "all_data" if file_name == "" else file_name
@@ -15,8 +16,8 @@ def export(export_dir = "", file_name = "all_data"):
     json_string = json.dumps(all_data,  ensure_ascii = False , indent=4)
     with open(file_path, "w", encoding="utf-8") as f:
         f.write(json_string)
-
-def import_films(import_dir , file_name ):
+@is_log_in
+def import_films(import_dir , file_name, current_user = None ):
     db = myDataBase()
 
     file_name = file_name + ".json"
