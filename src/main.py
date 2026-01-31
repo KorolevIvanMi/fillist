@@ -82,4 +82,5 @@ class FillistApp(App):
 
 
 if __name__ == '__main__':
+    print("Версия 1.1.1 запущена!!")
     FillistApp().run()
