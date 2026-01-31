@@ -21,7 +21,8 @@ def init(con,  pre_films, statuses, pre_genres, rating_v, pre_user):
         genre_id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL)
         ''')
-                
+
+
     cur.execute('''
         CREATE TABLE IF NOT EXISTS filmlist(
         film_id INTEGER PRIMARY KEY AUTOINCREMENT,
